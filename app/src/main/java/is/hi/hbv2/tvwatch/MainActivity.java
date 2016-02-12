@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -19,12 +20,12 @@ public class MainActivity extends ActionBarActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment f = fm.findFragmentById(R.id.container);
-        /*
+
         if(f == null){
             f = new MainMenuFragment();
             fm.beginTransaction().add(R.id.container, f).commit();
         }
-        */
+
 
         // get action bar
         ActionBar actionBar = getActionBar();
@@ -39,4 +40,22 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        if(id == R.id.action_nextup){
+            //swap to nextupfragment
+            FragmentManager fm = getSupportFragmentManager();
+
+            fm.beginTransaction().replace(R.id.container, new DisplayChannelFragment()).commit();
+
+        }else if (id == R.id.action_channels){
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.container, new DisplayChannelFragment()).commit();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

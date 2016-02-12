@@ -4,19 +4,19 @@
 
 
     <!-- Location Found -->
-    <item android:id="@+id/action_location_found"
-        android:title="Next"
-        TvWatch:showAsAction="always" />
+<item android:id="@+id/action_nextup"
+android:title="Next"
+TvWatch:showAsAction="always" />
 
     <!-- Refresh -->
-    <item android:id="@+id/action_refresh"
-        android:title="Channels"
-        TvWatch:showAsAction="always" />
+<item android:id="@+id/action_channels"
+android:title="Channels"
+TvWatch:showAsAction="always" />
 
     <!-- Help -->
-    <item android:id="@+id/action_help"
-        android:title="Fav"
-        TvWatch:showAsAction="always"/>
+<item android:id="@+id/action_help"
+android:title="Fav"
+TvWatch:showAsAction="always"/>
 
 
-</menu>
+    </menu>
