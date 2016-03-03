@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TvWatch</string>
+    <string name="Favorites">Favorites</string>
+    <string name="Nextup">NextUp</string>
+    <string name="Channels">Channels</string>
+
+
 </resources>

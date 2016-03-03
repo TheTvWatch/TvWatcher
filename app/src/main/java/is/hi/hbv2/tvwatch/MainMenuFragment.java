@@ -18,25 +18,8 @@ public class MainMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_home, container, false);
         //setUpViews();
-
-        b1 = (Button)parentView.findViewById(R.id.button);
-        b2 = (Button)parentView.findViewById(R.id.button2);
-
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(parentView.getContext(), "First Button Clicked", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(parentView.getContext(), "Second Button Clicked", Toast.LENGTH_LONG).show();
-            }
-        });
-
         return parentView;
     }
+
 
 }

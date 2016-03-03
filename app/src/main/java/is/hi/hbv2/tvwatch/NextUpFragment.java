@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import is.hi.hbv2.tvwatch.BroadCastItem;
 
 /**
- * Created by ari on 10-Feb-16.
+ * Created by ari on 13-Feb-16.
  */
-public class DisplayChannelFragment extends Fragment {
+public class NextUpFragment extends Fragment {
     private ArrayList<BroadCastItem> sched;
     View parentView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.display_channel_fragment, container, false);
+        parentView = inflater.inflate(R.layout.next_up_fragment, container, false);
 
         return parentView;
     }

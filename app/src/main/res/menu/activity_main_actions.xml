@@ -3,20 +3,20 @@
     xmlns:TvWatch="http://schemas.android.com/apk/res-auto">
 
 
-    <!-- Location Found -->
-<item android:id="@+id/action_nextup"
-android:title="Next"
-TvWatch:showAsAction="always" />
+            <!-- Location Found -->
+        <item android:id="@+id/action_nextup"
+        android:title="Next"
+        TvWatch:showAsAction="always" />
 
-    <!-- Refresh -->
-<item android:id="@+id/action_channels"
-android:title="Channels"
-TvWatch:showAsAction="always" />
+            <!-- Refresh -->
+        <item android:id="@+id/action_channels"
+        android:title="Channels"
+        TvWatch:showAsAction="always" />
 
-    <!-- Help -->
-<item android:id="@+id/action_help"
-android:title="Fav"
-TvWatch:showAsAction="always"/>
+            <!-- Help -->
+        <item android:id="@+id/action_favorites"
+        android:title="Fav"
+        TvWatch:showAsAction="always"/>
 
 
     </menu>
