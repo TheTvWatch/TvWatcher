@@ -64,7 +64,9 @@ public class FavoritesFragment extends Fragment {
             tt.setText(b.getTitle());
             tempStringList.add(b.getTitle());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.temporary_textview, tempStringList);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.temporary_textview, tempStringList);
+        BroadCastItemAdapter adapter = new BroadCastItemAdapter(getContext(),R.layout.temporary_textview,sched);
+
         listView.setAdapter(adapter);
     }
 }
