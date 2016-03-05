@@ -32,29 +32,31 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
             vc = new ViewContainer();
             convertView = inflater.inflate(R.layout.temporary_textview, null);
             TextView title = (TextView)convertView.findViewById(R.id.itemtitle);
-            TextView desc = (TextView)convertView.findViewById(R.id.itemdesc);
+            TextView eta = (TextView)convertView.findViewById(R.id.itemEta);
             TextView starttime = (TextView)convertView.findViewById(R.id.startTimeView);
             TextView duration = (TextView)convertView.findViewById(R.id.durationView);
-            TextView longDesc = (TextView)convertView.findViewById(R.id.description);
-            //FrameLayout frame = (FrameLayout)convertView.findViewById(R.id.detailsView);
+            TextView desc = (TextView)convertView.findViewById(R.id.description);
+
 
 
             vc.titleView = title;
-            vc.descView = desc;
+            vc.etaView = eta;
             vc.startTimeView = starttime;
             vc.durationView = duration;
-            vc.longDescView = longDesc;
+            vc.longDescView = desc;
             convertView.setTag(vc);
         }else{
             vc = (ViewContainer)convertView.getTag();
         }
         BroadCastItem item = getItem(position);
+
+
         vc.titleView.setText(item.title());
-        vc.descView.setText("+");
+        vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.shortDescription());
-        //Setja byrjunar tíman í startTimeView úr itemi
-        //vc.startTimeView.setText(item.);
+        //Setja byrjunar tíman í startTimeView ur itemi
+        //vc.startTimeView.setText();
 
         //Set onlick listener to induvidual view
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +77,7 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
     static class ViewContainer{
 
         TextView titleView;
-        TextView descView;
+        TextView etaView;
         TextView longDescView;
         TextView startTimeView;
         TextView durationView;
