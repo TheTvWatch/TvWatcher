@@ -28,13 +28,12 @@ public class NextUpFragment extends Fragment {
 
     public void populateLayout(){
         ListView listView = (ListView)parentView.findViewById(R.id.listview);
-        //Fáum lista úr textavarpinu
+        //We get list from the textavarp
 
         ArrayList<BroadCastItem> sched = t.getNextUp();
-        //populeitum listviewið með gögnunum
+        //We popluate with the data
         BroadCastItemAdapter adapter = new BroadCastItemAdapter(getContext(),R.layout.temporary_textview,sched);
 
-        //líma adater við listview
         listView.setAdapter(adapter);
     }
 
