@@ -130,7 +130,7 @@ public class Textavarpid {
             "      }\n" +
             "   ]\n" +
             "}";
-    private ArrayList<BroadCastItem> sched = new ArrayList<BroadCastItem>();
+    private ArrayList<SingleProgramm> sched = new ArrayList<SingleProgramm>();
     public Textavarpid(){
 
         //superString = superString.replaceAll("\n", "\\n");
@@ -153,11 +153,11 @@ public class Textavarpid {
         for ( int i = 0; i < jsonArray.length(); i++) {
             //jsonArray.getJSONObject(i);
             try{
-                sched.add(new BroadCastItem(jsonArray.getJSONObject(i)));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i)));
             }catch (JSONException e){
 
             }
-            Collections.sort(sched, new BroadCastItemComparator());
+            Collections.sort(sched, new SingleProgrammComparator());
 
             Log.d("villa", "" + i);
         }
@@ -166,21 +166,21 @@ public class Textavarpid {
 
 
 
-    public ArrayList<BroadCastItem> getFavorites(){
+    public ArrayList<SingleProgramm> getFavorites(){
         return sched;
     }
-    public ArrayList<BroadCastItem> getNextUp(){
+    public ArrayList<SingleProgramm> getNextUp(){
         return sched;
     }
 
-    private ArrayList<BroadCastItem> populateSched(){
+    private ArrayList<SingleProgramm> populateSched(){
 
         /*
-        sched.add(new BroadCastItem("Þáttur1", "lýsing1"));
-        sched.add(new BroadCastItem("Þáttur2", "lýsing2"));
-        sched.add(new BroadCastItem("Þáttur3", "lýsing3"));
-        sched.add(new BroadCastItem("Þáttur4", "lýsing4"));
-        sched.add(new BroadCastItem("Þáttur5", "lýsing5"));
+        sched.add(new SingleProgramm("Þáttur1", "lýsing1"));
+        sched.add(new SingleProgramm("Þáttur2", "lýsing2"));
+        sched.add(new SingleProgramm("Þáttur3", "lýsing3"));
+        sched.add(new SingleProgramm("Þáttur4", "lýsing4"));
+        sched.add(new SingleProgramm("Þáttur5", "lýsing5"));
         */
 
         return sched;

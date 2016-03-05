@@ -19,7 +19,7 @@ import static java.lang.Boolean.parseBoolean;
 /**
  * Created by ari on 14-Feb-16.
  */
-public class BroadCastItem {
+public class SingleProgramm {
     private String title = "";
     private String originalTitle = "";
     private String duration = "";
@@ -31,7 +31,7 @@ public class BroadCastItem {
     private boolean reccuring = false;
     private int episode;
     private int series;
-    public BroadCastItem(JSONObject json) {
+    public SingleProgramm(JSONObject json) {
 
         try{
             title = json.getString("title");
@@ -169,5 +169,9 @@ public class BroadCastItem {
     }
     public int series() {
         return series;
+    }
+
+    public String channel() {
+        return "RUV";
     }
 }
