@@ -53,7 +53,7 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         vc.descView.setText("+");
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.shortDescription());
-        //Setja byrjunar tíman í startTimeView úr itemi
+        //
         //vc.startTimeView.setText(item.);
 
         //Set onlick listener to induvidual view
