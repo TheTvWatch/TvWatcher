@@ -89,8 +89,9 @@ public class BroadCastItem {
         } catch (JSONException e){
             Log.d("Failiure", "Could Not Get Date Thingy");
         }
+        
         /*
-        JSONObject series = json.getJSONObject("series");
+        JSONObject s = json.getJSONObject("series");
         episode = Integer.parseInt(s.getString("episode"));
         series = Integer.parseInt(s.getString("series"));
         //reccuring = parseBoolean(json.getString())
@@ -139,6 +140,10 @@ public class BroadCastItem {
         String ret = "";
         ret += startTime.getHours() + ":" + startTime.getMinutes();
         return ret;
+    }
+
+    public Date getStartDate() {
+        return startTime;
     }
 
     public boolean isReccuring() {
