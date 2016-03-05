@@ -5,6 +5,10 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,15 +20,15 @@ import static java.lang.Boolean.parseBoolean;
  * Created by ari on 14-Feb-16.
  */
 public class BroadCastItem {
-    private String title ;
-    private String originalTitle;
-    private String duration;
-    private String description;
-    private String shortDescription;
-    private boolean live;
-    private boolean premier;
+    private String title = "";
+    private String originalTitle = "";
+    private String duration = "";
+    private String description = "";
+    private String shortDescription = "";
+    private boolean live = false;
+    private boolean premier = false;
     private Date startTime;
-    private boolean reccuring;
+    private boolean reccuring = false;
     private int episode;
     private int series;
     public BroadCastItem(JSONObject json) {
@@ -32,7 +36,7 @@ public class BroadCastItem {
         try{
             title = json.getString("title");
         } catch (JSONException e){
-            //
+
         }
         try{
             originalTitle = json.getString("originalTitle");
@@ -45,12 +49,17 @@ public class BroadCastItem {
             //
         }
         try{
-            shortDescription = json.getString("description");
+            description = json.getString("description");
         } catch (JSONException e){
             //
         }
         try{
-            title = json.getString("title");
+            shortDescription = json.getString("shortDescription");
+        } catch (JSONException e){
+            //
+        }
+        try{
+            originalTitle = json.getString("originalTitle");
         } catch (JSONException e){
             //
         }
@@ -69,33 +78,35 @@ public class BroadCastItem {
         } catch (JSONException e){
             //
         }
-        try{
-            title = json.getString("title");
+        //startTime":"2016-03-05 07:45:00",
+        try {
+            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+            try {
+                startTime = dateformat.parse(json.getString("startTime"));
+            } catch(ParseException p) {
+                //
+            }
         } catch (JSONException e){
-            //
+            Log.d("Failiure", "Could Not Get Date Thingy");
         }
-
-
-        Log.d("Success", "Thattur" + this.title() + "buinn til");
-
         /*
-        //description = json.getString("description");
-        JSONObject s = json.getJSONObject("series");
-        //startTime = json.getString("startTime");
+        JSONObject series = json.getJSONObject("series");
         episode = Integer.parseInt(s.getString("episode"));
         series = Integer.parseInt(s.getString("series"));
         //reccuring = parseBoolean(json.getString())
         */
+
+        Log.d("Success", "Thattur " + this.title() + " buinn til");
     }
     public String title() {
         if (title.isEmpty()) {
-            return "";
+            return "No Title";
         }
         return title;
     }
     public String originalTitle() {
         if (originalTitle.isEmpty()) {
-            return "";
+            return "No Original Title";
         }
         return originalTitle;
     }
@@ -118,22 +129,18 @@ public class BroadCastItem {
         return shortDescription;
     }
     public boolean isLive() {
-        if (!live){
-            return false;
-        }
         return live;
     }
     public boolean isPremier() {
-        if (!premier){
-            return false;
-        }
         return premier;
     }
-    /*
-    public Date startTime() {
-        return startTime;
+
+    public String startTimeAsString() {
+        String ret = "";
+        ret += startTime.getHours() + ":" + startTime.getMinutes();
+        return ret;
     }
-    */
+
     public boolean isReccuring() {
         return reccuring;
     }
