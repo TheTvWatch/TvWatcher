@@ -64,21 +64,39 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.container, new DisplayChannelFragment()).commit();
+                Fragment f = fm.findFragmentById(R.id.dispFrag);
+                if(f instanceof DisplayChannelFragment){
+                    fm.beginTransaction().replace(R.id.container, f).commit();
+                }else{
+                    fm.beginTransaction().replace(R.id.container, new DisplayChannelFragment()).commit();
+                }
+
             }
         });
         gotoNextup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.container, new NextUpFragment()).commit();
+                Fragment f = fm.findFragmentById(R.id.listview);
+                if(f instanceof NextUpFragment){
+                    fm.beginTransaction().replace(R.id.container, f).commit();
+                }else{
+                    fm.beginTransaction().replace(R.id.container, new NextUpFragment()).commit();
+                }
+
             }
         });
         gotoFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.container, new FavoritesFragment()).commit();
+                Fragment f = fm.findFragmentById(R.id.dispFrag);
+                if(f instanceof DisplayChannelFragment){
+                    fm.beginTransaction().replace(R.id.container, f).commit();
+                }else{
+                    fm.beginTransaction().replace(R.id.container, new FavoritesFragment()).commit();
+                }
+
             }
         });
     }

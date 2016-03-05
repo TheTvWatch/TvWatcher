@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by ari on 05-Mar-16.
@@ -120,7 +121,7 @@ public class Textavarpid {
             "         \"description\":\"Frábærir þættir um þá félaga Tomma og Jenna.\",\n" +
             "         \"live\":false,\n" +
             "         \"premier\":false,\n" +
-            "         \"startTime\":\"2016-03-05 08:35:00\",\n" +
+            "         \"startTime\":\"2013-03-05 08:35:00\",\n" +
             "         \"aspectRatio\":\"16/9\",\n" +
             "         \"series\":{  \n" +
             "            \"episode\":\"\",\n" +
@@ -156,6 +157,7 @@ public class Textavarpid {
             }catch (JSONException e){
 
             }
+            Collections.sort(sched, new BroadCastItemComparator());
 
             Log.d("villa", "" + i);
         }

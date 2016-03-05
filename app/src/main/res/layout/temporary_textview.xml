@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/itemdesc"
+            android:id="@+id/itemEta"
             android:layout_gravity="right|top" />
 
     </FrameLayout>
