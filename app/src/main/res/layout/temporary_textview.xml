@@ -46,9 +46,15 @@
                     android:background="@android:drawable/ic_menu_gallery" />
 
                 <TextView
+                    android:id="@+id/durationView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Hello World Detail!"/>
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/startTimeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""/>
 
             </LinearLayout>
             <TextView

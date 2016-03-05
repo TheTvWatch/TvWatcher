@@ -33,10 +33,15 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
             convertView = inflater.inflate(R.layout.temporary_textview, null);
             TextView title = (TextView)convertView.findViewById(R.id.itemtitle);
             TextView desc = (TextView)convertView.findViewById(R.id.itemdesc);
+            TextView starttime = (TextView)convertView.findViewById(R.id.startTimeView);
+            TextView duration = (TextView)convertView.findViewById(R.id.durationView);
             //FrameLayout frame = (FrameLayout)convertView.findViewById(R.id.detailsView);
+
+
             vc.titleView = title;
             vc.descView = desc;
-            //vc.frameLayout = frame;
+            vc.startTimeView = starttime;
+            vc.durationView = duration;
             convertView.setTag(vc);
         }else{
             vc = (ViewContainer)convertView.getTag();
@@ -44,6 +49,10 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         BroadCastItem item = getItem(position);
         vc.titleView.setText(item.title());
         vc.descView.setText(item.shortDescription());
+        vc.durationView.setText("Duration : +"+item.duration());
+        //Setja byrjunar tíman í startTimeView úr itemi
+        //vc.startTimeView.setText(item.);
+
         //Set onlick listener to induvidual view
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +73,8 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
 
         TextView titleView;
         TextView descView;
-        //FrameLayout frameLayout;
+        TextView startTimeView;
+        TextView durationView;
         ViewContainer (){
 
         }
