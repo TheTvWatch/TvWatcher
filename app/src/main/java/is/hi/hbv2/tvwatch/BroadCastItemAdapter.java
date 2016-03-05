@@ -48,8 +48,12 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.findViewById(R.id.detailsView).setVisibility(View.VISIBLE);
-
+                int vis =  v.findViewById(R.id.detailsView).getVisibility();
+                if (vis == View.GONE) {
+                    v.findViewById(R.id.detailsView).setVisibility(View.VISIBLE);
+                }else{
+                    v.findViewById(R.id.detailsView).setVisibility(View.GONE);
+                }
 
             }
         });
