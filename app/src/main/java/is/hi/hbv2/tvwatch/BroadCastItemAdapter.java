@@ -33,8 +33,10 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
             convertView = inflater.inflate(R.layout.temporary_textview, null);
             TextView title = (TextView)convertView.findViewById(R.id.itemtitle);
             TextView desc = (TextView)convertView.findViewById(R.id.itemdesc);
+            //FrameLayout frame = (FrameLayout)convertView.findViewById(R.id.detailsView);
             vc.titleView = title;
             vc.descView = desc;
+            //vc.frameLayout = frame;
             convertView.setTag(vc);
         }else{
             vc = (ViewContainer)convertView.getTag();
@@ -42,6 +44,15 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         BroadCastItem item = getItem(position);
         vc.titleView.setText(item.getTitle());
         vc.descView.setText(item.getDesc());
+        //Set onlick listener to induvidual view
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.findViewById(R.id.detailsView).setVisibility(View.VISIBLE);
+
+
+            }
+        });
 
         return convertView;
     }
@@ -49,11 +60,13 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
 
         TextView titleView;
         TextView descView;
-        FrameLayout frameLayout;
+        //FrameLayout frameLayout;
         ViewContainer (){
 
         }
+
     }
+
 }
 
 

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -15,11 +16,26 @@ import is.hi.hbv2.tvwatch.BroadCastItem;
  */
 public class NextUpFragment extends Fragment {
     private ArrayList<BroadCastItem> sched;
+    Textavarpid t = new Textavarpid();
     View parentView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.next_up_fragment, container, false);
-
+        populateLayout();
         return parentView;
+
+    }
+
+
+    public void populateLayout(){
+        ListView listView = (ListView)parentView.findViewById(R.id.listview);
+        //Fáum lista úr textavarpinu
+
+        ArrayList<BroadCastItem> sched = t.getNextUp();
+        //populeitum listviewið með gögnunum
+        BroadCastItemAdapter adapter = new BroadCastItemAdapter(getContext(),R.layout.temporary_textview,sched);
+
+        //líma adater við listview
+        listView.setAdapter(adapter);
     }
 
 }
