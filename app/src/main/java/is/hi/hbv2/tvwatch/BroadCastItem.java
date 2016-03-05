@@ -89,13 +89,28 @@ public class BroadCastItem {
         } catch (JSONException e){
             Log.d("Failiure", "Could Not Get Date Thingy");
         }
-        
-        /*
-        JSONObject s = json.getJSONObject("series");
-        episode = Integer.parseInt(s.getString("episode"));
-        series = Integer.parseInt(s.getString("series"));
-        //reccuring = parseBoolean(json.getString())
-        */
+
+        try {
+            JSONObject s = json.getJSONObject("series");
+            try {
+                String tempEpisodeString = s.getString("episode");
+                String tempSeriesString = s.getString("series");
+                if ( tempEpisodeString.isEmpty() && tempSeriesString.isEmpty() ){
+                    reccuring = false;
+                    episode = -1;
+                    series = -1;
+                } else {
+                    reccuring = true;
+                    episode = Integer.parseInt(tempEpisodeString);
+                    series = Integer.parseInt(tempSeriesString);
+                }
+
+            } catch (JSONException e) {
+                //
+            }
+        } catch (JSONException e) {
+            //
+        }
 
         Log.d("Success", "Thattur " + this.title() + " buinn til");
     }
@@ -113,7 +128,7 @@ public class BroadCastItem {
     }
     public String duration() {
         if (duration.isEmpty()){
-            return "";
+            return "N/A";
         }
         return duration;
     }
@@ -125,7 +140,7 @@ public class BroadCastItem {
     }
     public String shortDescription() {
         if (shortDescription.isEmpty()){
-            return "";
+            return "No Short Description";
         }
         return shortDescription;
     }
