@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
+        android:textColor="#000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click this one"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/buttonshape"
+        android:text="About"
+        android:layout_gravity="bottom|right"
+        android:id="@+id/button"/>
 
     <Button
+        android:textColor="#000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dont click that one"
+        android:background="@drawable/buttonshape"
+        android:text="Rate Us"
         android:id="@+id/button2"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:layout_gravity="bottom|left"/>
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logotmp" />
+
+</FrameLayout>

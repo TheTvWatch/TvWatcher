@@ -6,8 +6,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/framelistbg">
-
+        android:background="@drawable/framelistbg"
+        android:layout_marginTop="2dp">
         <TextView
             android:textColor="#000"
             android:textSize="24dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/itemdesc"
+            android:id="@+id/itemEta"
             android:layout_gravity="right|top" />
 
     </FrameLayout>
