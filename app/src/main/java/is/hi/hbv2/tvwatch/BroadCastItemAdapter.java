@@ -50,7 +50,7 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         }
         BroadCastItem item = getItem(position);
         vc.titleView.setText(item.title());
-        vc.descView.setText("Engin Lýsing");
+        vc.descView.setText("+");
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.shortDescription());
         //Setja byrjunar tíman í startTimeView úr itemi
