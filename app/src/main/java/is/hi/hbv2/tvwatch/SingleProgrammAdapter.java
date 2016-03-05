@@ -1,26 +1,21 @@
 package is.hi.hbv2.tvwatch;
 
 import android.content.Context;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ari on 02-Mar-16.
  */
-public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
+public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
     private LayoutInflater inflater;
 
-    public BroadCastItemAdapter(Context c,int id, List<BroadCastItem> myspace){
+    public SingleProgrammAdapter(Context c, int id, List<SingleProgramm> myspace){
         super(c, id, myspace);
         inflater = (LayoutInflater)getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
     }
@@ -48,14 +43,14 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         }else{
             vc = (ViewContainer)convertView.getTag();
         }
-        BroadCastItem item = getItem(position);
+        SingleProgramm item = getItem(position);
 
 
         vc.titleView.setText(item.title());
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
-        //Setja byrjunar tíman í startTimeView ur itemi
+        //Setja byrjunar tï¿½man ï¿½ startTimeView ur itemi
         //vc.startTimeView.setText();
 
         //Set onlick listener to induvidual view

@@ -9,13 +9,11 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import is.hi.hbv2.tvwatch.BroadCastItem;
-
 /**
  * Created by ari on 13-Feb-16.
  */
 public class NextUpFragment extends Fragment {
-    private ArrayList<BroadCastItem> sched;
+    private ArrayList<SingleProgramm> sched;
     Textavarpid t = new Textavarpid();
     View parentView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,9 +28,9 @@ public class NextUpFragment extends Fragment {
         ListView listView = (ListView)parentView.findViewById(R.id.listview);
         //We get list from the textavarp
 
-        ArrayList<BroadCastItem> sched = t.getNextUp();
+        ArrayList<SingleProgramm> sched = t.getNextUp();
         //We popluate with the data
-        BroadCastItemAdapter adapter = new BroadCastItemAdapter(getContext(),R.layout.temporary_textview,sched);
+        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
 
         listView.setAdapter(adapter);
     }
