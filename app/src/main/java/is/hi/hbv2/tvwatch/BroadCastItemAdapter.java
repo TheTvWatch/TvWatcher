@@ -54,7 +54,7 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         vc.titleView.setText(item.title());
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
-        vc.longDescView.setText(item.shortDescription());
+        vc.longDescView.setText(item.description());
         //Setja byrjunar tíman í startTimeView ur itemi
         //vc.startTimeView.setText();
 
