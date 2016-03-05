@@ -42,8 +42,8 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
             vc = (ViewContainer)convertView.getTag();
         }
         BroadCastItem item = getItem(position);
-        vc.titleView.setText(item.getTitle());
-        vc.descView.setText(item.getDesc());
+        vc.titleView.setText(item.title());
+        vc.descView.setText(item.shortDescription());
         //Set onlick listener to induvidual view
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

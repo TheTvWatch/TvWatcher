@@ -22,17 +22,25 @@ import is.hi.hbv2.tvwatch.BroadCastItem;
  */
 public class FavoritesFragment extends Fragment {
     ListView listView;
-    //Listi með dagskrá - viljum að þessi listi innihleldur aðeins favorites
-    Textavarpid t = new Textavarpid();
+
+    private ArrayList<BroadCastItem> sched = new ArrayList<BroadCastItem>();
     View parentView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
-
+        populateSched();
         populateLayout();
         return parentView;
     }
 
-
+    public void populateSched(){
+        /*
+        sched.add(new BroadCastItem("Þáttur1", "lýsing1"));
+        sched.add(new BroadCastItem("Þáttur2", "lýsing2"));
+        sched.add(new BroadCastItem("Þáttur3", "lýsing3"));
+        sched.add(new BroadCastItem("Þáttur4", "lýsing4"));
+        sched.add(new BroadCastItem("Þáttur5", "lýsing5"));
+        */
+    }
     /*
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -43,13 +51,14 @@ public class FavoritesFragment extends Fragment {
     */
     public void populateLayout(){
         ListView listView = (ListView)parentView.findViewById(R.id.listview);
-        //Fáum lista úr textavarpinu
+        //View v =(View) parentView.findViewById(R.layout.single_boradcastitem_layout);
 
-        ArrayList<BroadCastItem> sched = t.getFavorites();
-        //populeitum listviewið með gögnunum
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.temporary_textview, tempStringList);
         BroadCastItemAdapter adapter = new BroadCastItemAdapter(getContext(),R.layout.temporary_textview,sched);
 
-        //líma adater við listview
         listView.setAdapter(adapter);
     }
 }
