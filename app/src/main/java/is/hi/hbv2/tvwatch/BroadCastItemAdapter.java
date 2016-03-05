@@ -35,6 +35,7 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
             TextView desc = (TextView)convertView.findViewById(R.id.itemdesc);
             TextView starttime = (TextView)convertView.findViewById(R.id.startTimeView);
             TextView duration = (TextView)convertView.findViewById(R.id.durationView);
+            TextView longDesc = (TextView)convertView.findViewById(R.id.description);
             //FrameLayout frame = (FrameLayout)convertView.findViewById(R.id.detailsView);
 
 
@@ -42,14 +43,16 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
             vc.descView = desc;
             vc.startTimeView = starttime;
             vc.durationView = duration;
+            vc.longDescView = longDesc;
             convertView.setTag(vc);
         }else{
             vc = (ViewContainer)convertView.getTag();
         }
         BroadCastItem item = getItem(position);
         vc.titleView.setText(item.title());
-        vc.descView.setText(item.shortDescription());
+        vc.descView.setText("Engin Lýsing");
         vc.durationView.setText("Duration : +"+item.duration());
+        vc.longDescView.setText(item.shortDescription());
         //Setja byrjunar tíman í startTimeView úr itemi
         //vc.startTimeView.setText(item.);
 
@@ -57,10 +60,10 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int vis =  v.findViewById(R.id.detailsView).getVisibility();
+                int vis = v.findViewById(R.id.detailsView).getVisibility();
                 if (vis == View.GONE) {
                     v.findViewById(R.id.detailsView).setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     v.findViewById(R.id.detailsView).setVisibility(View.GONE);
                 }
 
@@ -73,6 +76,7 @@ public class BroadCastItemAdapter extends ArrayAdapter<BroadCastItem> {
 
         TextView titleView;
         TextView descView;
+        TextView longDescView;
         TextView startTimeView;
         TextView durationView;
         ViewContainer (){
