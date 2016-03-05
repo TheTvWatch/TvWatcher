@@ -170,4 +170,8 @@ public class SingleProgramm {
     public int series() {
         return series;
     }
+
+    public String channel() {
+        return "RUV";
+    }
 }
