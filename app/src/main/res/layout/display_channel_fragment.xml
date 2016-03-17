@@ -4,11 +4,38 @@
     android:id="@+id/dispFrag"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Display Channel here"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:weightSum="10"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stöð 2"
+            android:id="@+id/gotoStod2"
+            android:gravity="left"
+            android:layout_weight="5"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rúv"
+            android:id="@+id/gotoRuvButton"
+            android:gravity="right"
+            android:layout_weight="5"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listviewChannels">
+    </ListView>
+
 </LinearLayout>

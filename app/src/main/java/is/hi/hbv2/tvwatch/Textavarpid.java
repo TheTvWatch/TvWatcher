@@ -1,5 +1,6 @@
 package is.hi.hbv2.tvwatch;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,11 +10,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 /**
  * Created by ari on 05-Mar-16.
  */
-public class Textavarpid {
+public class Textavarpid implements JSONFetching{
     //API til að fá formattaða lista
+
+
     private String superString = "{  \n" +
             "   \"results\":[  \n" +
             "      {  \n" +
@@ -131,33 +135,24 @@ public class Textavarpid {
             "   ]\n" +
             "}";
     private ArrayList<SingleProgramm> sched = new ArrayList<SingleProgramm>();
-    public Textavarpid(){
 
-        //superString = superString.replaceAll("\n", "\\n");
+    JSONArray jArr = new JSONArray();
+    public Textavarpid(JSONTask jTask){
+        //JSONTask jTask = new JSONTask(this);
 
-        JSONObject json;
-        JSONArray jsonArray = null;
-        try{
-            json = new JSONObject(superString);
-            try {
-                jsonArray = json.getJSONArray("results");
-            } catch (JSONException e) {
-                Log.d("Villa", "Array hlutinn");
-            }
-        } catch (JSONException e) {
-            Log.d("Villa", "Gat ekki initad Json daemid");
-        }
+        jTask.execute("http://www.apis.is/tv/stod2");
 
+    }
 
+    public void buildJsonArray(){
+        for ( int i = 0; i < jArr.length(); i++) {
 
-        for ( int i = 0; i < jsonArray.length(); i++) {
-            //jsonArray.getJSONObject(i);
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i)));
+                sched.add(new SingleProgramm(jArr.getJSONObject(i)));
             }catch (JSONException e){
 
             }
-            Collections.sort(sched, new SingleProgrammComparator());
+            //Collections.sort(sched, new SingleProgrammComparator());
 
             Log.d("villa", "" + i);
         }
@@ -173,16 +168,19 @@ public class Textavarpid {
         return sched;
     }
 
-    private ArrayList<SingleProgramm> populateSched(){
 
-        /*
-        sched.add(new SingleProgramm("Þáttur1", "lýsing1"));
-        sched.add(new SingleProgramm("Þáttur2", "lýsing2"));
-        sched.add(new SingleProgramm("Þáttur3", "lýsing3"));
-        sched.add(new SingleProgramm("Þáttur4", "lýsing4"));
-        sched.add(new SingleProgramm("Þáttur5", "lýsing5"));
-        */
 
-        return sched;
+
+    @Override
+    public void didFetch(JSONArray jsonArray) throws JSONException {
+        jArr = jsonArray;
+        buildJsonArray();
+
+        try{
+            Log.d("asd",jArr.getJSONObject(0).getString("title"));
+        }catch (JSONException e){
+            Log.d("didFetch failed", "Big time");
+        }
+
     }
 }
