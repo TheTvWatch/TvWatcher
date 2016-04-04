@@ -3,61 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#86626470">
+    android:background="#fff">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#61636f">
-        <LinearLayout
+        android:background="#000000">
+        <RadioGroup
             android:weightSum="3"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-                <Button
+                <RadioButton
                     android:layout_weight="1"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Nextup"
-
-                    android:background="@drawable/buttonshape"
-                    android:textColor="#fadfb8"
+                    android:button="@null"
+                    android:background="@drawable/button2selector"
+                    android:textColor="#fff"
                     android:textSize="19sp"
                     android:id="@+id/nextup_button"
+                 />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:background="@drawable/button2selector"
+                    android:text="@string/Favorites"
+                    android:textColor="#fff"
+                    android:textSize="19sp"
+                    android:id="@+id/favorites_button"
                     />
 
-                <Button
+                <RadioButton
                     android:layout_weight="1"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:background="@drawable/buttonshape"
-                    android:text="@string/Favorites"
-                    android:textColor="#fadfb8"
-                    android:textSize="19sp"
-                    android:id="@+id/favorites_button" />
-
-                <Button
-                    android:layout_weight="1"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:background="@drawable/buttonshape"
+                    android:button="@null"
+                    android:background="@drawable/button3selector"
                     android:text="@string/Channels"
-                    android:textColor="#fadfb8"
+                    android:textColor="#fff"
                     android:textSize= "19sp"
-                    android:id="@+id/channels_button" />
+                    android:id="@+id/channels_button"
+                    />
 
-        </LinearLayout>
+        </RadioGroup>
 
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </FrameLayout>
     </LinearLayout>
 
