@@ -1,10 +1,14 @@
 package is.hi.hbv2.tvwatch;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -31,7 +35,7 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
             TextView starttime = (TextView)convertView.findViewById(R.id.startTimeView);
             TextView duration = (TextView)convertView.findViewById(R.id.durationView);
             TextView desc = (TextView)convertView.findViewById(R.id.description);
-
+            ImageView img =(ImageView)convertView.findViewById(R.id.imageView);
 
 
             vc.titleView = title;
@@ -39,6 +43,7 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
             vc.startTimeView = starttime;
             vc.durationView = duration;
             vc.longDescView = desc;
+            vc.imgView = img;
             convertView.setTag(vc);
         }else{
             vc = (ViewContainer)convertView.getTag();
@@ -50,6 +55,8 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
+
+        vc.imgView.setImageResource(R.drawable.ruv_logo);
         //Setja byrjunar t�man � startTimeView ur itemi
         //vc.startTimeView.setText();
 
@@ -76,11 +83,19 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         TextView longDescView;
         TextView startTimeView;
         TextView durationView;
+        ImageView imgView;
         ViewContainer (){
 
         }
 
     }
+    public void refresh()
+    {
+        super.clear();
+        this.notifyDataSetChanged();
+    }
+
+
 
 }
 
