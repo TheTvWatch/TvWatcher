@@ -11,8 +11,15 @@ import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by ari on 13-Feb-16.
@@ -20,12 +27,23 @@ import java.util.ArrayList;
 public class NextUpFragment extends Fragment implements JSONFetching{
     ListView listView;
     private ArrayList<SingleProgramm> sched = new ArrayList<SingleProgramm>();
+    private int counter = 0;
 
     View parentView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.next_up_fragment, container, false);
+
+
+        // TODO: Get endpoints from apis.is/tv and use those instead of having it hardcoded
         JSONTask jTask = new JSONTask(this);
         jTask.execute("http://www.apis.is/tv/ruv");
+        /*
+        JSONTask jTask2 = new JSONTask(this);
+        jTask2.execute("http://www.apis.is/tv/stod2");
+        JSONTask jTask3 = new JSONTask(this);
+        jTask3.execute("http://www.apis.is/tv/stod3");
+        */
+
         return parentView;
 
     }
@@ -46,7 +64,44 @@ public class NextUpFragment extends Fragment implements JSONFetching{
 
     @Override
     public void didFetch(JSONArray jsonArray) throws JSONException {
+        
+        // NEXT UP CASE
         for ( int i = 0; i < jsonArray.length(); i++) {
+
+            JSONObject obj = jsonArray.getJSONObject(i);
+
+            Date currentDate = new Date();
+            Date startTimeDate = new Date();
+            DateFormat showDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+            try {
+                startTimeDate = showDateFormat.parse(obj.getString("startTime"));
+                Log.d("DateShit", startTimeDate.toString());
+            } catch(ParseException p) {
+
+            }
+
+            try {
+                currentDate = showDateFormat.parse(giveDate());
+                Log.d("DateShit", currentDate.toString());
+            } catch (ParseException p) {
+                Log.d("DateShit",  giveDate());
+            }
+
+            try {
+                if ( startTimeDate.before(currentDate)) {
+                    continue;
+                }
+            } catch (NullPointerException n) {
+                //
+            }
+
+            try {
+                if (startTimeDate.after(getBufferDate(currentDate, 4))) {
+                    continue;
+                }
+            } catch (NullPointerException n) {
+
+            }
 
             try{
                 sched.add(new SingleProgramm(jsonArray.getJSONObject(i)));
@@ -54,9 +109,26 @@ public class NextUpFragment extends Fragment implements JSONFetching{
 
             }
             //Collections.sort(sched, new SingleProgrammComparator());
-
-            Log.d("villa", "" + i);
         }
-        populateLayout();
+        counter += 1;
+
+        if ( counter == 1 ) {
+            populateLayout();
+        }
+    }
+    public String giveDate() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return sdf.format(cal.getTime());
+    }
+
+    public static Date getBufferDate(Date currentTime, int timeBuffer) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime( currentTime );
+        calendar.add(Calendar.HOUR, timeBuffer);
+        return calendar.getTime();
     }
 }
+
+
