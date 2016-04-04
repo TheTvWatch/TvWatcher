@@ -20,6 +20,4 @@ public class MainMenuFragment extends Fragment {
         //setUpViews();
         return parentView;
     }
-
-
 }
