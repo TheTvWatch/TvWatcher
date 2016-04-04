@@ -5,9 +5,11 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ public class SingleProgramm {
     private boolean live = false;
     private boolean premier = false;
     private Date startTime;
+    public boolean favourite = false;
     private boolean reccuring = false;
     private int episode;
     private int series;
@@ -144,6 +147,7 @@ public class SingleProgramm {
         }
         return shortDescription;
     }
+    public Boolean isFavourite(){return favourite;}
     public boolean isLive() {
         return live;
     }
@@ -151,12 +155,20 @@ public class SingleProgramm {
         return premier;
     }
 
+
     public String startTimeAsString() {
         String ret = "";
         ret += startTime.getHours() + ":" + startTime.getMinutes();
         return ret;
     }
-
+    public Boolean setFavourites() {
+        favourite=!favourite;
+        Log.d("Success", "Thattur " + this.title() + " er favourite");
+        return favourite;
+    }
+    public Boolean getFavourites() {
+        return favourite;
+    }
     public Date getStartDate() {
         return startTime;
     }
