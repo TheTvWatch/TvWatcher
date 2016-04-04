@@ -5,6 +5,7 @@
     tools:context=".MainActivity"
     android:background="#86626470">
     <LinearLayout
+        android:id="@+id/mainlayout"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -51,6 +52,58 @@
                     android:textSize= "19sp"
                     android:id="@+id/channels_button" />
 
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:id="@+id/pickachannelbuttans"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rúv"
+                android:id="@+id/displayRuv"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stöð 2"
+                android:id="@+id/displayStod2"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skjár Einn"
+                android:id="@+id/displaySkjar"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stöð 2 Sport"
+                android:id="@+id/displayStod2Sport"
+                android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stöð 2 Gull"
+                android:id="@+id/displayStod2Gull"
+                android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stöð 2 Bíó"
+                android:id="@+id/displayStod2Bio"
+                android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rúv Íþróttir"
+                android:id="@+id/displayRuvIthrottir"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
         <FrameLayout

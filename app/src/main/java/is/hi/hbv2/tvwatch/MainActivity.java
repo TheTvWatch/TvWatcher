@@ -55,6 +55,87 @@ public class MainActivity extends FragmentActivity {
 
 
     }
+
+    public void setupDisplaySingleChannelButtons(View v){
+        //findViewById(R.id.mainlayout).setVisibility(View.GONE);
+        findViewById(R.id.pickachannelbuttans).setVisibility(View.VISIBLE);
+        Button gotoRuv, gotoStod2, gotoSkjar, gotoRuvIthrottir, gotoStod2Sport, gotoStod2Gull, gotoStod2Bio;
+        //setContentView(R.layout.pickachannel);
+        gotoRuv = (Button) findViewById(R.id.displayRuv);
+        gotoStod2 = (Button) findViewById(R.id.displayStod2);
+        gotoSkjar = (Button) findViewById(R.id.displaySkjar);
+        gotoRuvIthrottir = (Button) findViewById(R.id.displayRuvIthrottir);
+        gotoStod2Sport =(Button) findViewById(R.id.displayStod2Sport);
+        gotoStod2Gull = (Button) findViewById(R.id.displayStod2Gull);
+        gotoStod2Bio = (Button) findViewById(R.id.displayStod2Bio);
+
+
+        gotoRuv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplayRuvFragment()).commit();
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
+
+            }
+        });
+        gotoStod2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplayStod2Fragment()).commit();
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
+
+            }
+        });
+        gotoSkjar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplaySkjarEinnFragment()).commit();
+                */
+            }
+        });
+        gotoStod2Sport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplayStod2SportFragment()).commit();
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
+
+            }
+        });
+        gotoStod2Bio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplayStod2BioFragment()).commit();
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
+
+            }
+        });
+        gotoStod2Gull.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplayStod2GullFragment()).commit();
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
+
+            }
+        });
+        gotoRuvIthrottir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.container, new DisplayRuvIthrottirFragment()).commit();
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
+
+            }
+        });
+
+    }
+
     public void setUpNavListeners(){
         gotoChannels = (Button)findViewById(R.id.channels_button);
         gotoNextup   = (Button)findViewById(R.id.nextup_button);
@@ -63,6 +144,7 @@ public class MainActivity extends FragmentActivity {
         gotoChannels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 FragmentManager fm = getSupportFragmentManager();
                 Fragment f = fm.findFragmentById(R.id.dispFrag);
                 if(f instanceof DisplayChannelFragment){
@@ -70,7 +152,8 @@ public class MainActivity extends FragmentActivity {
                 }else{
                     fm.beginTransaction().replace(R.id.container, new DisplayChannelFragment()).commit();
                 }
-
+                */
+                setupDisplaySingleChannelButtons(v);
             }
         });
         gotoNextup.setOnClickListener(new View.OnClickListener() {
