@@ -39,7 +39,7 @@ public class SingleProgramm {
     public SingleProgramm(JSONObject json, String tvStation) {
 
         station = tvStation;
-
+        Log.d("Station: ", station);
         try{
             title = json.getString("title");
         } catch (JSONException e){

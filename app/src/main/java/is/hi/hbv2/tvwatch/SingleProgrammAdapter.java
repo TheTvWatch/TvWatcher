@@ -58,10 +58,18 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
-
-        //vc.imgView.setImageResource(R.drawable.ruv_logo);
-        //Setja byrjunar t�man � startTimeView ur itemi
-        //vc.startTimeView.setText();
+        //vc.imgView.setImageResource();
+       String station = vc.programData.tvStation();
+        switch (station){
+            case "ruv":
+                vc.imgView.setImageResource(R.drawable.ruv);
+                break;
+            case "stod2":
+                vc.imgView.setImageResource(R.drawable.stod2);
+                break;
+            default:
+                break;
+        }
 
         //Set onlick listener to induvidual view
         convertView.setOnClickListener(new View.OnClickListener() {

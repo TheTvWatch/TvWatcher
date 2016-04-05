@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView"
-                    android:background="@android:drawable/ic_menu_gallery" />
+                     />
 
                 <TextView
                     android:textColor="#899d91"
