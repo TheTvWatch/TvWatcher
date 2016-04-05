@@ -67,6 +67,34 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
             case "stod2":
                 vc.imgView.setImageResource(R.drawable.stod2);
                 break;
+            case "stod2sport":
+                vc.imgView.setImageResource(R.drawable.sport_logo);
+                break;
+            case "stod2sport2":
+                vc.imgView.setImageResource(R.drawable.sport2_logo);
+                break;
+            case "stod2sport3":
+                vc.imgView.setImageResource(R.drawable.sport3_logo);
+                break;
+            case "stod2sport4":
+                vc.imgView.setImageResource(R.drawable.sport4_logo);
+                break;
+            case "stod2sport5":
+                vc.imgView.setImageResource(R.drawable.sport5_logo);
+                break;
+            case "stod2sport6":
+                vc.imgView.setImageResource(R.drawable.sport6_logo);
+                break;
+            case "stod3":
+                vc.imgView.setImageResource(R.drawable.stod2);
+                break;
+            case "stod2bio":
+                vc.imgView.setImageResource(R.drawable.stod2bio_logo);
+                break;
+            case "skjareinn":
+                vc.imgView.setImageResource(R.drawable.skjareinn);
+                break;
+
             default:
                 break;
         }
