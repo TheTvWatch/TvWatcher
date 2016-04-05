@@ -86,7 +86,7 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
                 vc.imgView.setImageResource(R.drawable.sport6_logo);
                 break;
             case "stod3":
-                vc.imgView.setImageResource(R.drawable.stod2);
+                vc.imgView.setImageResource(R.drawable.Stod_3_logo_2013);
                 break;
             case "stod2bio":
                 vc.imgView.setImageResource(R.drawable.stod2bio_logo);
