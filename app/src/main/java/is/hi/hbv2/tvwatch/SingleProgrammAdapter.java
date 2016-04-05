@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
             TextView duration = (TextView)convertView.findViewById(R.id.durationView);
             TextView desc = (TextView)convertView.findViewById(R.id.description);
             ImageView img =(ImageView)convertView.findViewById(R.id.imageView);
-
+            CheckBox cb = (CheckBox)convertView.findViewById(R.id.favoritesCheckBox);
 
             vc.titleView = title;
             vc.etaView = eta;
@@ -44,19 +46,20 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
             vc.durationView = duration;
             vc.longDescView = desc;
             vc.imgView = img;
+            vc.checkMeOut = cb;
             convertView.setTag(vc);
         }else{
             vc = (ViewContainer)convertView.getTag();
         }
         SingleProgramm item = getItem(position);
 
-
+        vc.programData = item;
         vc.titleView.setText(item.title());
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
 
-        vc.imgView.setImageResource(R.drawable.ruv_logo);
+        //vc.imgView.setImageResource(R.drawable.ruv_logo);
         //Setja byrjunar t�man � startTimeView ur itemi
         //vc.startTimeView.setText();
 
@@ -74,6 +77,22 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
             }
         });
 
+        if(vc.programData.getFavourites()){
+          vc.checkMeOut.setChecked(true);
+        }
+
+        final ViewContainer finalVc = vc;
+        vc.checkMeOut.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    finalVc.programData.setFavourites();
+                }else if(!isChecked){
+                    finalVc.programData.setFavourites();
+                }
+            }
+        });
+
         return convertView;
     }
     static class ViewContainer{
@@ -84,6 +103,8 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         TextView startTimeView;
         TextView durationView;
         ImageView imgView;
+        SingleProgramm programData;
+        CheckBox checkMeOut;
         ViewContainer (){
 
         }
