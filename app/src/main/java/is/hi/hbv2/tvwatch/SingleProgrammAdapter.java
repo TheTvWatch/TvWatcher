@@ -2,6 +2,7 @@ package is.hi.hbv2.tvwatch;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +81,12 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         if(vc.programData.getFavourites()){
           vc.checkMeOut.setChecked(true);
         }
-
+        if(vc.programData.isLive()){
+            vc.titleView.setTextColor(Color.parseColor("#00FF00"));
+        }
+        else{
+            vc.titleView.setTextColor(Color.parseColor("#FFFFFF"));
+        }
         final ViewContainer finalVc = vc;
         vc.checkMeOut.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
