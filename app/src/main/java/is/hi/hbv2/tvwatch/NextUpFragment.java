@@ -63,8 +63,10 @@ public class NextUpFragment extends Fragment implements JSONFetching{
     }
 
     @Override
-    public void didFetch(JSONArray jsonArray) throws JSONException {
-        
+    public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
+
+        Log.d("TvStation", tvStation);
+
         // NEXT UP CASE
         for ( int i = 0; i < jsonArray.length(); i++) {
 
@@ -75,16 +77,13 @@ public class NextUpFragment extends Fragment implements JSONFetching{
             DateFormat showDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
             try {
                 startTimeDate = showDateFormat.parse(obj.getString("startTime"));
-                Log.d("DateShit", startTimeDate.toString());
             } catch(ParseException p) {
 
             }
 
             try {
                 currentDate = showDateFormat.parse(giveDate());
-                Log.d("DateShit", currentDate.toString());
             } catch (ParseException p) {
-                Log.d("DateShit",  giveDate());
             }
 
             try {
@@ -104,7 +103,7 @@ public class NextUpFragment extends Fragment implements JSONFetching{
             }
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i)));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
             }catch (JSONException e){
 
             }

@@ -27,6 +27,7 @@ public class SingleProgramm {
     private String duration = "";
     private String description = "";
     private String shortDescription = "";
+    private String station = "";
     private boolean live = false;
     private boolean premier = false;
     private Date startTime;
@@ -34,7 +35,10 @@ public class SingleProgramm {
     private boolean reccuring = false;
     private int episode;
     private int series;
-    public SingleProgramm(JSONObject json) {
+
+    public SingleProgramm(JSONObject json, String tvStation) {
+
+        station = tvStation;
 
         try{
             title = json.getString("title");
@@ -114,8 +118,6 @@ public class SingleProgramm {
         } catch (JSONException e) {
             //
         }
-
-        Log.d("Success", "Thattur " + this.title() + " buinn til");
     }
     public String title() {
         if (title.isEmpty()) {
@@ -147,6 +149,11 @@ public class SingleProgramm {
         }
         return shortDescription;
     }
+
+    public String tvStation() {
+        return station;
+    }
+
     public Boolean isFavourite(){return favourite;}
     public boolean isLive() {
         return live;

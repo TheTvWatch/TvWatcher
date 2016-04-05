@@ -19,12 +19,13 @@ import java.net.URL;
  * Created by ari on 17-Mar-16.
  */
 interface JSONFetching{
-    void didFetch(JSONArray jsonArray) throws JSONException;
+    void didFetch(JSONArray jsonArray, String station) throws JSONException;
 }
 
 public class JSONTask extends AsyncTask<String,String,JSONArray> {
 
 
+    private String tvStation = "";
     private JSONFetching updater;
     public JSONTask(JSONFetching callbackImplementer)
     {
@@ -41,7 +42,9 @@ public class JSONTask extends AsyncTask<String,String,JSONArray> {
             URL url = new URL(params[0]);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
-
+            String temp = params[0];
+            String[] seperated = temp.split("/");
+            tvStation = seperated[seperated.length-1];
 
 
             stream = connection.getInputStream();
@@ -117,12 +120,9 @@ public class JSONTask extends AsyncTask<String,String,JSONArray> {
         try
         {
             Log.d("JSON - onPostExecute", result.getJSONObject(0).getString("title"));
-            this.updater.didFetch(result);
+            this.updater.didFetch(result, tvStation);
         } catch (JSONException e) {
 
         }
-
-
-
     }
 }

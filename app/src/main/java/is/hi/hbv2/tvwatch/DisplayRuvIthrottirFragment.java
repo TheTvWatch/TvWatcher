@@ -39,11 +39,11 @@ public class DisplayRuvIthrottirFragment extends Fragment implements JSONFetchin
 
 
     @Override
-    public void didFetch(JSONArray jsonArray) throws JSONException {
+    public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
         for ( int i = 0; i < jsonArray.length(); i++) {
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i)));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
             }catch (JSONException e){
 
             }

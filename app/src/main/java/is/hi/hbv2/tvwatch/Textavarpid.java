@@ -32,7 +32,7 @@ public class Textavarpid implements JSONFetching{
         for ( int i = 0; i < jArr.length(); i++) {
 
             try{
-                sched.add(new SingleProgramm(jArr.getJSONObject(i)));
+                sched.add(new SingleProgramm(jArr.getJSONObject(i), "ruv"));
             }catch (JSONException e){
 
             }
@@ -56,7 +56,7 @@ public class Textavarpid implements JSONFetching{
 
 
     @Override
-    public void didFetch(JSONArray jsonArray) throws JSONException {
+    public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
         jArr = jsonArray;
         buildJsonArray();
 
