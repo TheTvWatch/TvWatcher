@@ -1,5 +1,6 @@
 package is.hi.hbv2.tvwatch;
 
+import android.app.Application;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -40,6 +41,8 @@ public class SingleProgramm {
     public SingleProgramm(JSONObject json, String tvStation, boolean air) {
 
         station = tvStation;
+
+        
         onAir = air;
         try{
             title = json.getString("title");
@@ -119,6 +122,10 @@ public class SingleProgramm {
         } catch (JSONException e) {
             //
         }
+        favourite = FavoritesManager.getInstance().isInFavorites(this.title);
+        if ( favourite ) {
+            Log.d("Favorite", title + " is favorite");
+        }
     }
     public String title() {
         if (title.isEmpty()) {
@@ -155,7 +162,11 @@ public class SingleProgramm {
         return station;
     }
 
-    public Boolean isFavourite(){return favourite;}
+    public Boolean isFavourite()
+    {
+
+        return FavoritesManager.getInstance().isInFavorites(this.title);
+    }
     public boolean isLive() {
         return live;
     }
@@ -182,8 +193,18 @@ public class SingleProgramm {
         return ret;
     }
     public Boolean setFavourites() {
-        favourite=!favourite;
+        favourite = !favourite;
         Log.d("Success", "Thattur " + this.title() + " er favourite");
+        FavoritesManager manager = FavoritesManager.getInstance();
+        if (favourite)
+        {
+            manager.saveToFavorites(this.title, this.title);
+        }
+        else
+        {
+            manager.deleteFromFavorites(this.title);
+        }
+
         return favourite;
     }
     public Boolean getFavourites() {

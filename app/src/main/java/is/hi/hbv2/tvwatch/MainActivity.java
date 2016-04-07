@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity {
     Button gotoNextup, gotoChannels, gotoFavorites;
-
+    private static Context mContext;
     private static final int NUM_PAGES = 3;
 
     /**
@@ -41,7 +41,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mContext = getApplicationContext();
         FragmentManager fm = getSupportFragmentManager();
         Fragment f = fm.findFragmentById(R.id.container);
 
@@ -54,6 +54,11 @@ public class MainActivity extends FragmentActivity {
 
 
 
+    }
+
+    public static Context getActivityContext()
+    {
+        return mContext;
     }
 
     public void setupDisplaySingleChannelButtons(View v){
