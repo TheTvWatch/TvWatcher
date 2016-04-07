@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -62,9 +63,6 @@ public class NextUpFragment extends Fragment implements JSONFetching{
 
     @Override
     public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
-
-        Log.d("TvStation", tvStation);
-
         // NEXT UP CASE
         for ( int i = 0; i < jsonArray.length(); i++) {
 
@@ -80,28 +78,62 @@ public class NextUpFragment extends Fragment implements JSONFetching{
                 currentDate = showDateFormat.parse(giveDate());
             } catch (ParseException p) {}
 
+            boolean onAir = false;
+
             try {
                 if ( startTimeDate.before(currentDate)) {
-                    continue;
+                    Date endTimeDate = new Date();
+                    Date durationDate = new Date();
+                    DateFormat durationFormat = new SimpleDateFormat("HH:mm:ss");
+                    DateFormat durationFormatShort = new SimpleDateFormat("HH:mm");
+                    try {
+                        String duration = obj.getString("duration");
+                        if ( duration.length() < 6 ){
+                            durationDate = durationFormatShort.parse(obj.getString("duration"));
+                        } else {
+                            durationDate = durationFormat.parse(obj.getString("duration"));
+                        }
+
+                    } catch (ParseException p) {
+
+                    }
+
+                    endTimeDate = getBufferDate(startTimeDate, durationDate.getHours(), durationDate.getMinutes());
+                    if (endTimeDate.after(currentDate)) {
+                        onAir = true;
+
+
+                        String show = "";
+                        try{
+                            show = obj.getString("title");
+                        } catch ( JSONException e ) {
+
+                        }
+
+                        Log.d("ONAIR", "Show " + show + " is on Air");
+                    } else {
+                        continue;
+                    }
                 }
             } catch (NullPointerException n) {}
 
             try {
-                if (startTimeDate.after(getBufferDate(currentDate, 4))) {
+                if (startTimeDate.after(getBufferDate(currentDate, 3, 0))) {
                     continue;
                 }
             } catch (NullPointerException n) {}
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation, onAir));
             }catch (JSONException e){
 
             }
-            //Collections.sort(sched, new SingleProgrammComparator());
         }
         counter += 1;
 
-        if ( counter == 1 ) {
+        if ( counter == 3 ) {
+            Collections.sort(sched, new SingleProgrammComparator());
+
             populateLayout();
         }
     }
@@ -112,10 +144,11 @@ public class NextUpFragment extends Fragment implements JSONFetching{
         return sdf.format(cal.getTime());
     }
 
-    public static Date getBufferDate(Date currentTime, int timeBuffer) {
+    public static Date getBufferDate(Date currentTime, int hours, int minutes) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime( currentTime );
-        calendar.add(Calendar.HOUR, timeBuffer);
+        calendar.setTime(currentTime);
+        calendar.add(Calendar.HOUR, hours);
+        calendar.add(Calendar.MINUTE, minutes);
         return calendar.getTime();
     }
 }

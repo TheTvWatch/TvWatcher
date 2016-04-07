@@ -25,7 +25,7 @@ public class DisplayStod2Fragment extends Fragment implements JSONFetching {
         parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
 
         JSONTask jTask = new JSONTask(this);
-        jTask.execute("http://www.apis.is/tv/ruv");
+        jTask.execute("http://www.apis.is/tv/stod2");
 
         return parentView;
     }
@@ -43,13 +43,10 @@ public class DisplayStod2Fragment extends Fragment implements JSONFetching {
         for ( int i = 0; i < jsonArray.length(); i++) {
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i),tvStation));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i),tvStation, false));
             }catch (JSONException e){
 
             }
-            //Collections.sort(sched, new SingleProgrammComparator());
-
-            Log.d("villa", "" + i);
         }
         populateLayout();
     }
