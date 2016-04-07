@@ -165,7 +165,18 @@ public class SingleProgramm {
 
     public String startTimeAsString() {
         String ret = "";
-        ret += startTime.getHours() + ":" + startTime.getMinutes();
+        if(startTime.getHours()<10){
+            ret+="0"+startTime.getHours();
+        }
+        else{
+            ret+=startTime.getHours();
+        }
+        if(startTime.getMinutes()<10){
+            ret+="0"+startTime.getMinutes();
+        }
+        else{
+            ret+=startTime.getMinutes();
+        }
         return ret;
     }
     public Boolean setFavourites() {
