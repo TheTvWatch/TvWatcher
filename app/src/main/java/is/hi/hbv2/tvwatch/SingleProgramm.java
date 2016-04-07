@@ -27,6 +27,7 @@ public class SingleProgramm {
     private String duration = "";
     private String description = "";
     private String shortDescription = "";
+    private String station = "";
     private boolean live = false;
     private boolean premier = false;
     private Date startTime;
@@ -35,8 +36,10 @@ public class SingleProgramm {
     private int episode;
     private int series;
 
-    public SingleProgramm(JSONObject json) {
+    public SingleProgramm(JSONObject json, String tvStation) {
 
+        station = tvStation;
+        Log.d("Station: ", station);
         try{
             title = json.getString("title");
         } catch (JSONException e){
@@ -115,8 +118,6 @@ public class SingleProgramm {
         } catch (JSONException e) {
             //
         }
-
-        Log.d("Success", "Thattur " + this.title() + " buinn til");
     }
     public String title() {
         if (title.isEmpty()) {
@@ -148,6 +149,11 @@ public class SingleProgramm {
         }
         return shortDescription;
     }
+
+    public String tvStation() {
+        return station;
+    }
+
     public Boolean isFavourite(){return favourite;}
     public boolean isLive() {
         return live;
@@ -159,19 +165,7 @@ public class SingleProgramm {
 
     public String startTimeAsString() {
         String ret = "";
-        if(startTime.getHours()<10){
-            ret += "0"+startTime.getHours();
-        }
-        else{
-            ret += startTime.getHours();
-        }
-        if(startTime.getMinutes()<10){
-            ret+=":0"+startTime.getMinutes();
-        }
-        else{
-            ret+=":"+startTime.getMinutes();
-        }
-        Log.d("Success","Tími"+ ret + "staðfestur");
+        ret += startTime.getHours() + ":" + startTime.getMinutes();
         return ret;
     }
     public Boolean setFavourites() {

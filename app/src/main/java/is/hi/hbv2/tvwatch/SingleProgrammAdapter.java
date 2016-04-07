@@ -59,10 +59,46 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
+        //vc.imgView.setImageResource();
+       String station = vc.programData.tvStation();
+        switch (station){
+            case "ruv":
+                vc.imgView.setImageResource(R.drawable.ruv);
+                break;
+            case "stod2":
+                vc.imgView.setImageResource(R.drawable.stod2);
+                break;
+            case "stod2sport":
+                vc.imgView.setImageResource(R.drawable.sport_logo);
+                break;
+            case "stod2sport2":
+                vc.imgView.setImageResource(R.drawable.sport2_logo);
+                break;
+            case "stod2sport3":
+                vc.imgView.setImageResource(R.drawable.sport3_logo);
+                break;
+            case "stod2sport4":
+                vc.imgView.setImageResource(R.drawable.sport4_logo);
+                break;
+            case "stod2sport5":
+                vc.imgView.setImageResource(R.drawable.sport5_logo);
+                break;
+            case "stod2sport6":
+                vc.imgView.setImageResource(R.drawable.sport6_logo);
+                break;
+            case "stod3":
+                vc.imgView.setImageResource(R.drawable.stod_3_logo_2013);
+                break;
+            case "stod2bio":
+                vc.imgView.setImageResource(R.drawable.stod2bio_logo);
+                break;
+            case "skjareinn":
+                vc.imgView.setImageResource(R.drawable.skjareinn);
+                break;
 
-        //vc.imgView.setImageResource(R.drawable.ruv_logo);
-        //Setja byrjunar t�man � startTimeView ur itemi
-        //vc.startTimeView.setText();
+            default:
+                break;
+        }
 
         //Set onlick listener to induvidual view
         convertView.setOnClickListener(new View.OnClickListener() {

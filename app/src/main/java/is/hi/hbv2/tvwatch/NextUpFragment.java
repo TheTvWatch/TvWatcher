@@ -37,12 +37,10 @@ public class NextUpFragment extends Fragment implements JSONFetching{
         // TODO: Get endpoints from apis.is/tv and use those instead of having it hardcoded
         JSONTask jTask = new JSONTask(this);
         jTask.execute("http://www.apis.is/tv/ruv");
-        /*
         JSONTask jTask2 = new JSONTask(this);
         jTask2.execute("http://www.apis.is/tv/stod2");
         JSONTask jTask3 = new JSONTask(this);
         jTask3.execute("http://www.apis.is/tv/stod3");
-        */
 
         return parentView;
 
@@ -63,8 +61,10 @@ public class NextUpFragment extends Fragment implements JSONFetching{
     }
 
     @Override
-    public void didFetch(JSONArray jsonArray) throws JSONException {
-        
+    public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
+
+        Log.d("TvStation", tvStation);
+
         // NEXT UP CASE
         for ( int i = 0; i < jsonArray.length(); i++) {
 
@@ -75,36 +75,25 @@ public class NextUpFragment extends Fragment implements JSONFetching{
             DateFormat showDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
             try {
                 startTimeDate = showDateFormat.parse(obj.getString("startTime"));
-                Log.d("DateShit", startTimeDate.toString());
-            } catch(ParseException p) {
-
-            }
-
+            } catch(ParseException p) {}
             try {
                 currentDate = showDateFormat.parse(giveDate());
-                Log.d("DateShit", currentDate.toString());
-            } catch (ParseException p) {
-                Log.d("DateShit",  giveDate());
-            }
+            } catch (ParseException p) {}
 
             try {
                 if ( startTimeDate.before(currentDate)) {
                     continue;
                 }
-            } catch (NullPointerException n) {
-                //
-            }
+            } catch (NullPointerException n) {}
 
             try {
                 if (startTimeDate.after(getBufferDate(currentDate, 4))) {
                     continue;
                 }
-            } catch (NullPointerException n) {
-
-            }
+            } catch (NullPointerException n) {}
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i)));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
             }catch (JSONException e){
 
             }
