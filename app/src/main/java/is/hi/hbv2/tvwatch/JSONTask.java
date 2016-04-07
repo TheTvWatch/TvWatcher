@@ -59,8 +59,6 @@ public class JSONTask extends AsyncTask<String,String,JSONArray> {
 
             String finalJSON = buffer.toString();
 
-            Log.d("JSON response", "" + buffer.toString());
-
             JSONObject parent = new JSONObject(finalJSON);
 
             JSONArray resArray = null;

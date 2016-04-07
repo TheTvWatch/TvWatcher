@@ -30,16 +30,17 @@ public class SingleProgramm {
     private String station = "";
     private boolean live = false;
     private boolean premier = false;
+    private boolean onAir = false;
     private Date startTime;
     public boolean favourite = false;
     private boolean reccuring = false;
     private int episode;
     private int series;
 
-    public SingleProgramm(JSONObject json, String tvStation, boolean onAir) {
+    public SingleProgramm(JSONObject json, String tvStation, boolean air) {
 
         station = tvStation;
-        Log.d("Station: ", station);
+        onAir = air;
         try{
             title = json.getString("title");
         } catch (JSONException e){
@@ -171,6 +172,7 @@ public class SingleProgramm {
         else{
             ret+=startTime.getHours();
         }
+        ret += ":";
         if(startTime.getMinutes()<10){
             ret+="0"+startTime.getMinutes();
         }
@@ -190,10 +192,10 @@ public class SingleProgramm {
     public Date getStartDate() {
         return startTime;
     }
-
     public boolean isReccuring() {
         return reccuring;
     }
+    public boolean isOnAir() { return onAir;};
     public int episode() {
         return episode;
     }

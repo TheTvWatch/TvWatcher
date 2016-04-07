@@ -130,7 +130,7 @@ public class NextUpFragment extends Fragment implements JSONFetching{
         }
         counter += 1;
 
-        if ( counter == 1 ) {
+        if ( counter == 3 ) {
             populateLayout();
         }
     }
