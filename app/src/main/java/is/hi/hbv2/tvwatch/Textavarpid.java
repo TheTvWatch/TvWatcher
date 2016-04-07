@@ -32,13 +32,10 @@ public class Textavarpid implements JSONFetching{
         for ( int i = 0; i < jArr.length(); i++) {
 
             try{
-                sched.add(new SingleProgramm(jArr.getJSONObject(i), "ruv"));
+                sched.add(new SingleProgramm(jArr.getJSONObject(i), "ruv", false));
             }catch (JSONException e){
 
             }
-            //Collections.sort(sched, new SingleProgrammComparator());
-
-            Log.d("villa", "" + i);
         }
     }
 

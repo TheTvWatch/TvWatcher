@@ -36,7 +36,7 @@ public class SingleProgramm {
     private int episode;
     private int series;
 
-    public SingleProgramm(JSONObject json, String tvStation) {
+    public SingleProgramm(JSONObject json, String tvStation, boolean onAir) {
 
         station = tvStation;
         Log.d("Station: ", station);
