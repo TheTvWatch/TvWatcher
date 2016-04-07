@@ -54,11 +54,14 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         }
         SingleProgramm item = getItem(position);
 
+
         vc.programData = item;
         vc.titleView.setText(item.title());
         vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
+
+
         //vc.imgView.setImageResource();
        String station = vc.programData.tvStation();
         switch (station){
