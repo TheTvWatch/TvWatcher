@@ -56,9 +56,16 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
 
         vc.programData = item;
         vc.titleView.setText(item.title());
-        vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
+        if(vc.programData.isOnAir()){
+            vc.etaView.setText("Live NOW");
+        }
+        else{
+            vc.etaView.setText(item.startTimeAsString());
+        }
+
+
         //vc.imgView.setImageResource();
        String station = vc.programData.tvStation();
         switch (station){
@@ -117,6 +124,7 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         if(vc.programData.getFavourites()){
           vc.checkMeOut.setChecked(true);
         }
+
         if(vc.programData.isLive()){
             vc.titleView.setTextColor(Color.parseColor("#00FF00"));
         }
