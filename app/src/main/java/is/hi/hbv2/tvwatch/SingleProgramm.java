@@ -42,7 +42,7 @@ public class SingleProgramm {
 
         station = tvStation;
 
-        
+
         onAir = air;
         try{
             title = json.getString("title");

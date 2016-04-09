@@ -59,7 +59,10 @@ public class FavoritesFragment extends Fragment implements JSONFetching{
         for ( int i = 0; i < jsonArray.length(); i++) {
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation, false));
+                SingleProgramm program = new SingleProgramm(jsonArray.getJSONObject(i), tvStation, false);
+                if (program.favourite == true) {
+                    sched.add(program);
+                }
             }catch (JSONException e){
 
             }
