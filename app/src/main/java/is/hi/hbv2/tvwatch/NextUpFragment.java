@@ -56,7 +56,7 @@ public class NextUpFragment extends Fragment implements JSONFetching{
         JSONTask jTask6 = new JSONTask(this,1);
         jTask6.execute("http://www.apis.is/tv/stod2gull");
         JSONTask jTask7 = new JSONTask(this,1);
-        jTask7.execute("http://www.apis.is/tv/stod2sport2");
+        jTask7.execute("http://www.apis.is/tv/ruvithrottir");
 
         return parentView;
 
@@ -132,12 +132,12 @@ public class NextUpFragment extends Fragment implements JSONFetching{
                 }
             } catch (NullPointerException n) {}
 
-            try {
+            /*try {
                 if (startTimeDate.after(getBufferDate(currentDate, 3, 0))) {
                     continue;
                 }
             } catch (NullPointerException n) {}
-
+            */
             addSingleProgram(jsonArray, i, tvStation, onAir);
         }
         counter += 1;
