@@ -24,7 +24,7 @@ public class DisplaySkjarEinnFragment extends Fragment implements JSONFetching {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
 
-        JSONTask jTask = new JSONTask(this);
+        JSONTask jTask = new JSONTask(this,1);
         jTask.execute("http://www.apis.is/tv/skjar1");
 
         return parentView;

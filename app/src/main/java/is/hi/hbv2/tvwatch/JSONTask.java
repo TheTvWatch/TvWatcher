@@ -24,52 +24,69 @@ interface JSONFetching{
 
 public class JSONTask extends AsyncTask<String,String,JSONArray> {
 
-
+    public int count;
     private String tvStation = "";
     private JSONFetching updater;
-    public JSONTask(JSONFetching callbackImplementer)
+    public JSONTask(JSONFetching callbackImplementer, int count)
     {
+        this.count = count;
         this.updater = callbackImplementer;
     }
+
+
+    private JSONArray concatArray(JSONArray... arrs)
+            throws JSONException {
+        JSONArray result = new JSONArray();
+        for (JSONArray arr : arrs) {
+            for (int i = 0; i < arr.length(); i++) {
+                result.put(arr.get(i));
+            }
+        }
+        return result;
+    }
+
     @Override
     protected JSONArray doInBackground(String... params)
     {
+        JSONArray finalArr = null;
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         InputStream stream = null;
-        try
-        {
-            URL url = new URL(params[0]);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-            String temp = params[0];
-            String[] seperated = temp.split("/");
-            tvStation = seperated[seperated.length-1];
 
+        int i = 0;
+        try {
+            while (i<count) {
+                URL url = new URL(params[i]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                String temp = params[i];
+                i++;
+                String[] seperated = temp.split("/");
+                tvStation = seperated[seperated.length - 1];
 
-            stream = connection.getInputStream();
+                stream = connection.getInputStream();
 
-            reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuffer buffer = new StringBuffer();
-            String line = "";
-            while ((line = reader.readLine()) != null)
-            {
-                buffer.append(line);
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+
+                String finalJSON = buffer.toString();
+
+                JSONObject parent = new JSONObject(finalJSON);
+
+                JSONArray resArray = null;
+
+                resArray = parent.getJSONArray("results");
+                if (finalArr == null) {
+                    finalArr = resArray;
+                } else {
+                    JSONArray tmp = concatArray(finalArr, resArray);
+                }
             }
-
-            String finalJSON = buffer.toString();
-
-            JSONObject parent = new JSONObject(finalJSON);
-
-            JSONArray resArray = null;
-
-            resArray = parent.getJSONArray("results");
-
-
-
-            return resArray;
-
-
+            return finalArr;
         }
         catch (MalformedURLException e)
         {
@@ -108,6 +125,7 @@ public class JSONTask extends AsyncTask<String,String,JSONArray> {
             }
         }
         return null;
+
     }
 
     @Override

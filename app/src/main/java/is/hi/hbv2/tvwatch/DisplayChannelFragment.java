@@ -26,7 +26,7 @@ public class DisplayChannelFragment extends Fragment implements JSONFetching {
     SingleProgrammAdapter adapter;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.display_channel_fragment, container, false);
-        jTask = new JSONTask(this);
+        jTask = new JSONTask(this,1);
         Button ruvButton = (Button) parentView.findViewById(R.id.gotoRuvButton);
         Button stodButton = (Button) parentView.findViewById(R.id.gotoStod2);
         ruvButton.setOnClickListener(new View.OnClickListener() {

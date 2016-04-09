@@ -34,23 +34,22 @@ public class FavoritesManager
         sharedPreferences = context.getSharedPreferences("CustomNamedPreference",Context.MODE_PRIVATE);
     }
 
-    public boolean saveToFavorites(String title, String key)
+    public void saveToFavorites(String key)
     {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        prefsEditor.putString(key, title);
-        return prefsEditor.commit();
+        prefsEditor.putBoolean(key, true);
+        prefsEditor.commit();
     }
 
     public void deleteFromFavorites(String key)
     {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor.remove(key);
-        prefsEditor.apply();
+        prefsEditor.commit();
     }
 
     public boolean isInFavorites(String key)
     {
-        String value = sharedPreferences.getString(key, "");
-        return value.equals("") == false;
+        return sharedPreferences.contains(key);
     }
 }

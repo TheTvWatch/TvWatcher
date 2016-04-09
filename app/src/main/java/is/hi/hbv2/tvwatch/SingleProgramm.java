@@ -198,7 +198,7 @@ public class SingleProgramm {
         FavoritesManager manager = FavoritesManager.getInstance();
         if (favourite)
         {
-            manager.saveToFavorites(this.title, this.title);
+            manager.saveToFavorites(this.title);
         }
         else
         {

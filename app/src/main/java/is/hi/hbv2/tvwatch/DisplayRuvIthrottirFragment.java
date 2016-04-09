@@ -24,7 +24,7 @@ public class DisplayRuvIthrottirFragment extends Fragment implements JSONFetchin
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
 
-        JSONTask jTask = new JSONTask(this);
+        JSONTask jTask = new JSONTask(this, 1);
         jTask.execute("http://www.apis.is/tv/ruvithrottir");
 
         return parentView;
