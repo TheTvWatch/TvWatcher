@@ -1,7 +1,9 @@
 package is.hi.hbv2.tvwatch;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -42,20 +44,20 @@ public class NextUpFragment extends Fragment implements JSONFetching{
         mDialog.show();
 
         // TODO: Get endpoints from apis.is/tv and use those instead of having it hardcoded
-        JSONTask jTask = new JSONTask(this,1);
+        JSONTask jTask = new JSONTask(this,getActivity().getApplicationContext());
         jTask.execute("http://www.apis.is/tv/ruv");
-        JSONTask jTask2 = new JSONTask(this,1);
+        JSONTask jTask2 = new JSONTask(this,getActivity().getApplicationContext());
         jTask2.execute("http://www.apis.is/tv/stod2");
-        JSONTask jTask3 = new JSONTask(this,1);
+        JSONTask jTask3 = new JSONTask(this,getActivity().getApplicationContext());
         jTask3.execute("http://www.apis.is/tv/stod3");
 
-        JSONTask jTask4 = new JSONTask(this,1);
+        JSONTask jTask4 = new JSONTask(this,getActivity().getApplicationContext());
         jTask4.execute("http://www.apis.is/tv/stod2bio");
-        JSONTask jTask5 = new JSONTask(this,1);
+        JSONTask jTask5 = new JSONTask(this,getActivity().getApplicationContext());
         jTask5.execute("http://www.apis.is/tv/stod2sport");
-        JSONTask jTask6 = new JSONTask(this,1);
+        JSONTask jTask6 = new JSONTask(this,getActivity().getApplicationContext());
         jTask6.execute("http://www.apis.is/tv/stod2gull");
-        JSONTask jTask7 = new JSONTask(this,1);
+        JSONTask jTask7 = new JSONTask(this,getActivity().getApplicationContext());
         jTask7.execute("http://www.apis.is/tv/ruvithrottir");
 
         return parentView;
@@ -79,66 +81,71 @@ public class NextUpFragment extends Fragment implements JSONFetching{
     @Override
     public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
         // NEXT UP CASE
-        for ( int i = 0; i < jsonArray.length(); i++) {
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.length(); i++) {
 
-            JSONObject obj = jsonArray.getJSONObject(i);
+                JSONObject obj = jsonArray.getJSONObject(i);
 
-            Date currentDate = new Date();
-            Date startTimeDate = new Date();
-            DateFormat showDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-            try {
-                startTimeDate = showDateFormat.parse(obj.getString("startTime"));
-            } catch(ParseException p) {}
-            try {
-                currentDate = showDateFormat.parse(giveDate());
-            } catch (ParseException p) {}
+                Date currentDate = new Date();
+                Date startTimeDate = new Date();
+                DateFormat showDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+                try {
+                    startTimeDate = showDateFormat.parse(obj.getString("startTime"));
+                } catch (ParseException p) {
+                }
+                try {
+                    currentDate = showDateFormat.parse(giveDate());
+                } catch (ParseException p) {
+                }
 
-            boolean onAir = false;
+                boolean onAir = false;
 
-            try {
-                if ( startTimeDate.before(currentDate)) {
-                    Date endTimeDate = new Date();
-                    Date durationDate = new Date();
-                    DateFormat durationFormat = new SimpleDateFormat("HH:mm:ss");
-                    DateFormat durationFormatShort = new SimpleDateFormat("HH:mm");
-                    try {
-                        String duration = obj.getString("duration");
-                        if ( duration.length() < 6 ){
-                            durationDate = durationFormatShort.parse(obj.getString("duration"));
+                try {
+                    if (startTimeDate.before(currentDate)) {
+                        Date endTimeDate = new Date();
+                        Date durationDate = new Date();
+                        DateFormat durationFormat = new SimpleDateFormat("HH:mm:ss");
+                        DateFormat durationFormatShort = new SimpleDateFormat("HH:mm");
+                        try {
+                            String duration = obj.getString("duration");
+                            if (duration.length() < 6) {
+                                durationDate = durationFormatShort.parse(obj.getString("duration"));
+                            } else {
+                                durationDate = durationFormat.parse(obj.getString("duration"));
+                            }
+
+                        } catch (ParseException p) {
+
+                        }
+
+                        endTimeDate = getBufferDate(startTimeDate, durationDate.getHours(), durationDate.getMinutes());
+                        if (endTimeDate.after(currentDate)) {
+                            onAir = true;
+
+
+                            String show = "";
+                            try {
+                                show = obj.getString("title");
+                            } catch (JSONException e) {
+
+                            }
+
+                            Log.d("ONAIR", "Show " + show + " is on Air");
                         } else {
-                            durationDate = durationFormat.parse(obj.getString("duration"));
+                            continue;
                         }
-
-                    } catch (ParseException p) {
-
                     }
+                } catch (NullPointerException n) {
+                }
 
-                    endTimeDate = getBufferDate(startTimeDate, durationDate.getHours(), durationDate.getMinutes());
-                    if (endTimeDate.after(currentDate)) {
-                        onAir = true;
-
-
-                        String show = "";
-                        try{
-                            show = obj.getString("title");
-                        } catch ( JSONException e ) {
-
-                        }
-
-                        Log.d("ONAIR", "Show " + show + " is on Air");
-                    } else {
+                /*try {
+                    if (startTimeDate.after(getBufferDate(currentDate, 3, 0))) {
                         continue;
                     }
-                }
-            } catch (NullPointerException n) {}
-
-            /*try {
-                if (startTimeDate.after(getBufferDate(currentDate, 3, 0))) {
-                    continue;
-                }
-            } catch (NullPointerException n) {}
-            */
-            addSingleProgram(jsonArray, i, tvStation, onAir);
+                } catch (NullPointerException n) {}
+                */
+                addSingleProgram(jsonArray, i, tvStation, onAir);
+            }
         }
         counter += 1;
 
@@ -154,6 +161,33 @@ public class NextUpFragment extends Fragment implements JSONFetching{
             });
         }
 
+    }
+
+    @Override
+    public void didFailToFetch() {
+        Log.d("Internet connection failure!","Internet is Down cannot fetch data");
+        this.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mDialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity()).create();
+        alertDialog.setTitle("No Internet Connection");
+        alertDialog.setMessage("Please establish a solid internet connection and try again.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("close","blaædfjkaædajx");
+                        dialog.dismiss();
+                        dialog.cancel();
+                    }
+
+                });
+        alertDialog.show();
     }
 
     public void addSingleProgram(JSONArray jsonArray, int index, String tvStation, boolean onAir)

@@ -4,7 +4,10 @@ package is.hi.hbv2.tvwatch;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +16,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity {
     Button gotoNextup, gotoChannels, gotoFavorites;
+
     private static Context mContext;
     private static final int NUM_PAGES = 3;
 
@@ -45,7 +50,7 @@ public class MainActivity extends FragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment f = fm.findFragmentById(R.id.container);
 
-        if(f == null){
+        if(f == null) {
             f = new MainMenuFragment();
             fm.beginTransaction().add(R.id.container, f).commit();
         }
