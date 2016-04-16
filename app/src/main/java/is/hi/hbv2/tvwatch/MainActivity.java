@@ -163,12 +163,14 @@ public class MainActivity extends FragmentActivity {
                     fm.beginTransaction().replace(R.id.container, new DisplayChannelFragment()).commit();
                 }
                 */
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
                 setupDisplaySingleChannelButtons(v);
             }
         });
         gotoNextup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
                 FragmentManager fm = getSupportFragmentManager();
                 Fragment f = fm.findFragmentById(R.id.listview);
                 if(f instanceof NextUpFragment){
@@ -182,6 +184,7 @@ public class MainActivity extends FragmentActivity {
         gotoFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.pickachannelbuttans).setVisibility(View.GONE);
                 FragmentManager fm = getSupportFragmentManager();
                 Fragment f = fm.findFragmentById(R.id.dispFrag);
                 if(f instanceof DisplayChannelFragment){
