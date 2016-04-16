@@ -2,14 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#86626470">
+    tools:context=".MainActivity">
     <LinearLayout
         android:id="@+id/mainlayout"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#61636f">
+        android:background="#7888AB">
         <RadioGroup
             android:weightSum="3"
             android:orientation="horizontal"
@@ -24,7 +23,7 @@
                     android:text="@string/Nextup"
 
                     android:background="@drawable/button1selector"
-                    android:textColor="#fadfb8"
+                    android:textColor="#ffffff"
                     android:textSize="19sp"
                     android:id="@+id/nextup_button"
                     />
@@ -38,7 +37,7 @@
                     android:checked="false"
                     android:background="@drawable/button1selector"
                     android:text="@string/Favorites"
-                    android:textColor="#fadfb8"
+                    android:textColor="#ffffff"
                     android:textSize="19sp"
                     android:id="@+id/favorites_button" />
 
@@ -51,7 +50,7 @@
                     android:checked="false"
                     android:background="@drawable/button1selector"
                     android:text="@string/Channels"
-                    android:textColor="#fadfb8"
+                    android:textColor="#ffffff"
                     android:textSize= "19sp"
                     android:id="@+id/channels_button" />
 

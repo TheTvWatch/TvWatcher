@@ -3,19 +3,16 @@
 
     <gradient
         android:angle="270"
-        android:centerX="50%"
-        android:centerColor="#7c1008"
-        android:endColor="#000000"
-        android:startColor="#000000"
+        android:centerX="90%"
+        android:startColor="#2e4473"
+        android:centerColor="#2e4473"
+        android:endColor="#4e638f"
         android:type="linear"
         />
     <size
         android:width="100dp"
         android:height="10dp"
         />
-    <stroke
-        android:color="#ba7c1008"
-        android:width="1dp"
-        />
+
 
 </shape>

@@ -50,7 +50,7 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#7c1008">
+        android:background="#646a74">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                      />
 
                 <TextView
-                    android:textColor="#899d91"
+                    android:textColor="#000000"
                     android:textSize="20dp"
                     android:id="@+id/durationView"
                     android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             </LinearLayout>
             <TextView
                 android:textSize="19dp"
-                android:textColor="#a9a285"
+                android:textColor="#ffffff"
                 android:layout_gravity="bottom"
                 android:id="@+id/description"
                 android:layout_width="match_parent"
