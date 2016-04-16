@@ -1,9 +1,7 @@
 package is.hi.hbv2.tvwatch;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -32,7 +29,7 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
         ViewContainer vc = null;
         if (convertView == null){
             vc = new ViewContainer();
-            convertView = inflater.inflate(R.layout.temporary_textview, null);
+            convertView = inflater.inflate(R.layout.single_broadcast, null);
             TextView title = (TextView)convertView.findViewById(R.id.itemtitle);
             TextView eta = (TextView)convertView.findViewById(R.id.itemEta);
             TextView starttime = (TextView)convertView.findViewById(R.id.startTimeView);
