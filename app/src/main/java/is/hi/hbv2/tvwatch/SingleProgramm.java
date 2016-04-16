@@ -1,5 +1,6 @@
 package is.hi.hbv2.tvwatch;
 
+import android.app.Application;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -30,16 +31,19 @@ public class SingleProgramm {
     private String station = "";
     private boolean live = false;
     private boolean premier = false;
+    private boolean onAir = false;
     private Date startTime;
     public boolean favourite = false;
     private boolean reccuring = false;
     private int episode;
     private int series;
 
-    public SingleProgramm(JSONObject json, String tvStation) {
+    public SingleProgramm(JSONObject json, String tvStation, boolean air) {
 
         station = tvStation;
-        Log.d("Station: ", station);
+
+
+        onAir = air;
         try{
             title = json.getString("title");
         } catch (JSONException e){
@@ -118,6 +122,10 @@ public class SingleProgramm {
         } catch (JSONException e) {
             //
         }
+        favourite = FavoritesManager.getInstance().isInFavorites(this.title);
+        if ( favourite ) {
+            Log.d("Favorite", title + " is favorite");
+        }
     }
     public String title() {
         if (title.isEmpty()) {
@@ -154,7 +162,11 @@ public class SingleProgramm {
         return station;
     }
 
-    public Boolean isFavourite(){return favourite;}
+    public Boolean isFavourite()
+    {
+
+        return FavoritesManager.getInstance().isInFavorites(this.title);
+    }
     public boolean isLive() {
         return live;
     }
@@ -165,12 +177,34 @@ public class SingleProgramm {
 
     public String startTimeAsString() {
         String ret = "";
-        ret += startTime.getHours() + ":" + startTime.getMinutes();
+        if(startTime.getHours()<10){
+            ret+="0"+startTime.getHours();
+        }
+        else{
+            ret+=startTime.getHours();
+        }
+        ret += ":";
+        if(startTime.getMinutes()<10){
+            ret+="0"+startTime.getMinutes();
+        }
+        else{
+            ret+=startTime.getMinutes();
+        }
         return ret;
     }
     public Boolean setFavourites() {
-        favourite=!favourite;
+        favourite = !favourite;
         Log.d("Success", "Thattur " + this.title() + " er favourite");
+        FavoritesManager manager = FavoritesManager.getInstance();
+        if (favourite)
+        {
+            manager.saveToFavorites(this.title);
+        }
+        else
+        {
+            manager.deleteFromFavorites(this.title);
+        }
+
         return favourite;
     }
     public Boolean getFavourites() {
@@ -179,10 +213,10 @@ public class SingleProgramm {
     public Date getStartDate() {
         return startTime;
     }
-
     public boolean isReccuring() {
         return reccuring;
     }
+    public boolean isOnAir() { return onAir;};
     public int episode() {
         return episode;
     }

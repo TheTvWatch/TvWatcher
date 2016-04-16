@@ -1,6 +1,12 @@
 package is.hi.hbv2.tvwatch;
 
 import android.content.Context;
+<<<<<<< HEAD
+=======
+import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+>>>>>>> a0d38b388c06c7cd733ca151eba4c4e22530e48d
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +58,16 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
 
         vc.programData = item;
         vc.titleView.setText(item.title());
-        vc.etaView.setText(item.startTimeAsString());
         vc.durationView.setText("Duration : +"+item.duration());
         vc.longDescView.setText(item.description());
+        if(vc.programData.isOnAir()){
+            vc.etaView.setText("Live NOW");
+        }
+        else{
+            vc.etaView.setText(item.startTimeAsString());
+        }
+
+
         //vc.imgView.setImageResource();
        String station = vc.programData.tvStation();
         switch (station){
@@ -83,7 +96,11 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
                 vc.imgView.setImageResource(R.drawable.sport6_logo);
                 break;
             case "stod3":
+<<<<<<< HEAD
                 vc.imgView.setImageResource(R.drawable.stod_3_2013);
+=======
+                vc.imgView.setImageResource(R.drawable.stod_3_logo_2013);
+>>>>>>> a0d38b388c06c7cd733ca151eba4c4e22530e48d
                 break;
             case "stod2bio":
                 vc.imgView.setImageResource(R.drawable.stod2bio_logo);
@@ -114,6 +131,12 @@ public class SingleProgrammAdapter extends ArrayAdapter<SingleProgramm> {
           vc.checkMeOut.setChecked(true);
         }
 
+        if(vc.programData.isLive()){
+            vc.titleView.setTextColor(Color.parseColor("#00FF00"));
+        }
+        else{
+            vc.titleView.setTextColor(Color.parseColor("#FFFFFF"));
+        }
         final ViewContainer finalVc = vc;
         vc.checkMeOut.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

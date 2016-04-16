@@ -1,37 +1,20 @@
 package is.hi.hbv2.tvwatch;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
 
 /**
  * Created by ari on 13-Feb-16.
  */
-public class FavoritesFragment extends Fragment implements JSONFetching{
+public class FavoritesFragment extends NextUpFragment implements JSONFetching{
     ListView listView;
 
-    private ArrayList<SingleProgramm> sched = new ArrayList<SingleProgramm>();
-    View parentView;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
-
-        JSONTask jTask = new JSONTask(this);
-        jTask.execute("http://www.apis.is/tv/stod2");
-
-        return parentView;
-    }
 
     @Override
+<<<<<<< HEAD
     public void onViewCreated(View view, Bundle savedInstanceState) {
         populateLayout();
         super.onViewCreated(view, savedInstanceState);
@@ -62,11 +45,18 @@ public class FavoritesFragment extends Fragment implements JSONFetching{
                 sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
             }catch (JSONException e){
 
+=======
+    public void addSingleProgram(JSONArray jsonArray, int index, String tvStation, boolean onAir)
+    {
+        try{
+            SingleProgramm program = new SingleProgramm(jsonArray.getJSONObject(index), tvStation, onAir);
+            if (program.favourite)
+            {
+                sched.add(program);
+>>>>>>> a0d38b388c06c7cd733ca151eba4c4e22530e48d
             }
-            //Collections.sort(sched, new SingleProgrammComparator());
+        }catch (JSONException e){
 
-            Log.d("villa", "" + i);
         }
-        populateLayout();
     }
 }

@@ -1,5 +1,6 @@
 package is.hi.hbv2.tvwatch;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -26,21 +28,35 @@ import java.util.TimeZone;
  */
 public class NextUpFragment extends Fragment implements JSONFetching{
     ListView listView;
-    private ArrayList<SingleProgramm> sched = new ArrayList<SingleProgramm>();
+    public ArrayList<SingleProgramm> sched = new ArrayList<SingleProgramm>();
     private int counter = 0;
+    private ProgressDialog mDialog;
 
     View parentView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.next_up_fragment, container, false);
 
+        mDialog = new ProgressDialog(this.getContext());
+        mDialog.setMessage("Please wait...");
+        mDialog.setCancelable(false);
+        mDialog.show();
 
         // TODO: Get endpoints from apis.is/tv and use those instead of having it hardcoded
-        JSONTask jTask = new JSONTask(this);
+        JSONTask jTask = new JSONTask(this,1);
         jTask.execute("http://www.apis.is/tv/ruv");
-        JSONTask jTask2 = new JSONTask(this);
+        JSONTask jTask2 = new JSONTask(this,1);
         jTask2.execute("http://www.apis.is/tv/stod2");
-        JSONTask jTask3 = new JSONTask(this);
+        JSONTask jTask3 = new JSONTask(this,1);
         jTask3.execute("http://www.apis.is/tv/stod3");
+
+        JSONTask jTask4 = new JSONTask(this,1);
+        jTask4.execute("http://www.apis.is/tv/stod2bio");
+        JSONTask jTask5 = new JSONTask(this,1);
+        jTask5.execute("http://www.apis.is/tv/stod2sport");
+        JSONTask jTask6 = new JSONTask(this,1);
+        jTask6.execute("http://www.apis.is/tv/stod2gull");
+        JSONTask jTask7 = new JSONTask(this,1);
+        jTask7.execute("http://www.apis.is/tv/ruvithrottir");
 
         return parentView;
 
@@ -62,9 +78,6 @@ public class NextUpFragment extends Fragment implements JSONFetching{
 
     @Override
     public void didFetch(JSONArray jsonArray, String tvStation) throws JSONException {
-
-        Log.d("TvStation", tvStation);
-
         // NEXT UP CASE
         for ( int i = 0; i < jsonArray.length(); i++) {
 
@@ -80,31 +93,78 @@ public class NextUpFragment extends Fragment implements JSONFetching{
                 currentDate = showDateFormat.parse(giveDate());
             } catch (ParseException p) {}
 
+            boolean onAir = false;
+
             try {
                 if ( startTimeDate.before(currentDate)) {
-                    continue;
+                    Date endTimeDate = new Date();
+                    Date durationDate = new Date();
+                    DateFormat durationFormat = new SimpleDateFormat("HH:mm:ss");
+                    DateFormat durationFormatShort = new SimpleDateFormat("HH:mm");
+                    try {
+                        String duration = obj.getString("duration");
+                        if ( duration.length() < 6 ){
+                            durationDate = durationFormatShort.parse(obj.getString("duration"));
+                        } else {
+                            durationDate = durationFormat.parse(obj.getString("duration"));
+                        }
+
+                    } catch (ParseException p) {
+
+                    }
+
+                    endTimeDate = getBufferDate(startTimeDate, durationDate.getHours(), durationDate.getMinutes());
+                    if (endTimeDate.after(currentDate)) {
+                        onAir = true;
+
+
+                        String show = "";
+                        try{
+                            show = obj.getString("title");
+                        } catch ( JSONException e ) {
+
+                        }
+
+                        Log.d("ONAIR", "Show " + show + " is on Air");
+                    } else {
+                        continue;
+                    }
                 }
             } catch (NullPointerException n) {}
 
-            try {
-                if (startTimeDate.after(getBufferDate(currentDate, 4))) {
+            /*try {
+                if (startTimeDate.after(getBufferDate(currentDate, 3, 0))) {
                     continue;
                 }
             } catch (NullPointerException n) {}
-
-            try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
-            }catch (JSONException e){
-
-            }
-            //Collections.sort(sched, new SingleProgrammComparator());
+            */
+            addSingleProgram(jsonArray, i, tvStation, onAir);
         }
         counter += 1;
 
-        if ( counter == 1 ) {
+        if ( counter == 7 ) {
+            Collections.sort(sched, new SingleProgrammComparator());
+
             populateLayout();
+            this.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDialog.dismiss();
+                }
+            });
+        }
+
+    }
+
+    public void addSingleProgram(JSONArray jsonArray, int index, String tvStation, boolean onAir)
+    {
+        try{
+            sched.add(new SingleProgramm(jsonArray.getJSONObject(index), tvStation, onAir));
+        }catch (JSONException e){
+
         }
     }
+
     public String giveDate() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
@@ -112,10 +172,11 @@ public class NextUpFragment extends Fragment implements JSONFetching{
         return sdf.format(cal.getTime());
     }
 
-    public static Date getBufferDate(Date currentTime, int timeBuffer) {
+    public static Date getBufferDate(Date currentTime, int hours, int minutes) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime( currentTime );
-        calendar.add(Calendar.HOUR, timeBuffer);
+        calendar.setTime(currentTime);
+        calendar.add(Calendar.HOUR, hours);
+        calendar.add(Calendar.MINUTE, minutes);
         return calendar.getTime();
     }
 }

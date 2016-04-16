@@ -23,7 +23,7 @@ public class DisplaySkjarEinnFragment extends Fragment implements JSONFetching {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
 
-        JSONTask jTask = new JSONTask(this);
+        JSONTask jTask = new JSONTask(this,1);
         jTask.execute("http://www.apis.is/tv/skjar1");
 
         return parentView;
@@ -42,13 +42,10 @@ public class DisplaySkjarEinnFragment extends Fragment implements JSONFetching {
         for ( int i = 0; i < jsonArray.length(); i++) {
 
             try{
-                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation));
+                sched.add(new SingleProgramm(jsonArray.getJSONObject(i), tvStation, false));
             }catch (JSONException e){
 
             }
-            //Collections.sort(sched, new SingleProgrammComparator());
-
-            Log.d("villa", "" + i);
         }
         populateLayout();
     }
