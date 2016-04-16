@@ -1,5 +1,7 @@
 package is.hi.hbv2.tvwatch;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -24,7 +26,7 @@ public class DisplayStod2SportFragment extends Fragment implements JSONFetching 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fravorites_fragment, container, false);
 
-        JSONTask jTask = new JSONTask(this,1);
+        JSONTask jTask = new JSONTask(this,getActivity().getApplicationContext());
         jTask.execute("http://www.apis.is/tv/stod2sport");
 
         return parentView;
@@ -49,5 +51,19 @@ public class DisplayStod2SportFragment extends Fragment implements JSONFetching 
             }
         }
         populateLayout();
+    }
+    @Override
+    public void didFailToFetch() {
+        Log.d("Internet connection failure!","Internet is Down cannot fetch data");
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity()).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Alert message to be shown");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }

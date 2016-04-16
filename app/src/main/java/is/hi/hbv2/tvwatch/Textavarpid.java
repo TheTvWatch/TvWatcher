@@ -64,4 +64,9 @@ public class Textavarpid implements JSONFetching{
         }
 
     }
+
+    @Override
+    public void didFailToFetch() {
+        Log.d("Internet connection failure", "No network detected");
+    }
 }

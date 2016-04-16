@@ -1,5 +1,6 @@
 package is.hi.hbv2.tvwatch;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -20,16 +21,18 @@ import java.net.URL;
  */
 interface JSONFetching{
     void didFetch(JSONArray jsonArray, String station) throws JSONException;
+    void didFailToFetch();
 }
 
 public class JSONTask extends AsyncTask<String,String,JSONArray> {
-
-    public int count;
+    private int count;
+    public Context mcontext;
     private String tvStation = "";
     private JSONFetching updater;
-    public JSONTask(JSONFetching callbackImplementer, int count)
+    public JSONTask(JSONFetching callbackImplementer, Context ctx)
     {
         this.count = count;
+        this.mcontext = ctx;
         this.updater = callbackImplementer;
     }
 
@@ -55,7 +58,7 @@ public class JSONTask extends AsyncTask<String,String,JSONArray> {
 
         int i = 0;
         try {
-            while (i<count) {
+            while (i<1/*HAKK TODO:Breyta*/) {
                 URL url = new URL(params[i]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
@@ -132,10 +135,24 @@ public class JSONTask extends AsyncTask<String,String,JSONArray> {
     protected void onPostExecute(JSONArray result)
     {
         //super.onPostExecute(result);
-        //TODO: Parse JSON
+
+        if (result == null)
+        {
+            Context ctx = mcontext;
+            ConnectionDetector detector = new ConnectionDetector(ctx);
+            Boolean connected = detector.isConnectingToInternet();
+            Log.w("Network Connection","Connection is "+connected);
+            if (connected == false)
+            {
+                this.updater.didFailToFetch();
+                return;
+            }
+        }
         try
         {
-            Log.d("JSON - onPostExecute", result.getJSONObject(0).getString("title"));
+            if (result != null && result.getJSONObject(0) != null) {
+                Log.d("JSON - onPostExecute", result.getJSONObject(0).getString("title"));
+            }
             this.updater.didFetch(result, tvStation);
         } catch (JSONException e) {
 

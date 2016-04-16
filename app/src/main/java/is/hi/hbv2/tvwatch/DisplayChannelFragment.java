@@ -14,7 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 /**
  * Created by ari on 10-Feb-16.
  */
@@ -26,7 +27,7 @@ public class DisplayChannelFragment extends Fragment implements JSONFetching {
     SingleProgrammAdapter adapter;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.display_channel_fragment, container, false);
-        jTask = new JSONTask(this,1);
+        jTask = new JSONTask(this,getActivity().getApplicationContext());
         Button ruvButton = (Button) parentView.findViewById(R.id.gotoRuvButton);
         Button stodButton = (Button) parentView.findViewById(R.id.gotoStod2);
         ruvButton.setOnClickListener(new View.OnClickListener() {
@@ -80,5 +81,20 @@ public class DisplayChannelFragment extends Fragment implements JSONFetching {
             }
         }
         populateLayout();
+    }
+
+    @Override
+    public void didFailToFetch() {
+        Log.d("Internet connection failure!","Internet is Down cannot fetch data");
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity()).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Alert message to be shown");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }
