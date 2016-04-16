@@ -71,7 +71,7 @@ public class NextUpFragment extends Fragment implements JSONFetching{
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast_item,sched);
+        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
 
         listView.setAdapter(adapter);
     }

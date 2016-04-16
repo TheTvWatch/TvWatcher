@@ -1,6 +1,7 @@
 package is.hi.hbv2.tvwatch;
 
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class DisplayRuvIthrottirFragment extends Fragment implements JSONFetchin
     public void populateLayout(){
         ListView listView = (ListView)parentView.findViewById(R.id.listview);
 
-        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast_item,sched);
+        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
 
         listView.setAdapter(adapter);
     }
