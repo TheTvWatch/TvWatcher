@@ -56,11 +56,11 @@ public class DisplayChannelFragment extends Fragment implements JSONFetching {
 
 
         if(adapter == null){
-            adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
+            adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast_item,sched);
 
         }else{
 
-            adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
+            adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast_item,sched);
 
         }
 
