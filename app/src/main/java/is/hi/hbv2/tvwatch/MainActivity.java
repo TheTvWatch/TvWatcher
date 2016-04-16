@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity {
     Button gotoNextup, gotoChannels, gotoFavorites;
-
+    public boolean isAlertRunning;
     private static Context mContext;
     private static final int NUM_PAGES = 3;
 
