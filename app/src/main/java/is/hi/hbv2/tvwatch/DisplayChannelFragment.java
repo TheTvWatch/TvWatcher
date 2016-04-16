@@ -57,11 +57,11 @@ public class DisplayChannelFragment extends Fragment implements JSONFetching {
 
 
         if(adapter == null){
-            adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
+            adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast,sched);
 
         }else{
 
-            adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
+            adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast,sched);
 
         }
 
@@ -86,15 +86,29 @@ public class DisplayChannelFragment extends Fragment implements JSONFetching {
     @Override
     public void didFailToFetch() {
         Log.d("Internet connection failure!","Internet is Down cannot fetch data");
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity()).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Alert message to be shown");
+        final MainActivity activity = (MainActivity) getActivity();
+
+        if (activity.isAlertRunning)
+        {
+            return;
+        }
+        AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+        alertDialog.setTitle("No Internet Connection");
+        alertDialog.setMessage("Please establish a solid internet connection and try again.");
+
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+
                 new DialogInterface.OnClickListener() {
+
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        dialog.cancel();
+                        activity.isAlertRunning = false;
+
                     }
+
                 });
         alertDialog.show();
+        activity.isAlertRunning = true;
     }
 }

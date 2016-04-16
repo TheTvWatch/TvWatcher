@@ -3,7 +3,6 @@ package is.hi.hbv2.tvwatch;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +33,7 @@ public class DisplaySkjarEinnFragment extends Fragment implements JSONFetching {
     public void populateLayout(){
         ListView listView = (ListView)parentView.findViewById(R.id.listview);
 
-        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
+        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast,sched);
 
         listView.setAdapter(adapter);
     }
@@ -55,15 +54,29 @@ public class DisplaySkjarEinnFragment extends Fragment implements JSONFetching {
     @Override
     public void didFailToFetch() {
         Log.d("Internet connection failure!","Internet is Down cannot fetch data");
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity()).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Alert message to be shown");
+        final MainActivity activity = (MainActivity) getActivity();
+        
+        if (activity.isAlertRunning)
+        {
+            return;
+        }
+        AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+        alertDialog.setTitle("No Internet Connection");
+        alertDialog.setMessage("Please establish a solid internet connection and try again.");
+
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+
                 new DialogInterface.OnClickListener() {
+
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        dialog.cancel();
+                        activity.isAlertRunning = false;
+
                     }
+
                 });
         alertDialog.show();
+        activity.isAlertRunning = true;
     }
 }

@@ -73,7 +73,7 @@ public class NextUpFragment extends Fragment implements JSONFetching{
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.temporary_textview,sched);
+        SingleProgrammAdapter adapter = new SingleProgrammAdapter(getContext(),R.layout.single_broadcast,sched);
 
         listView.setAdapter(adapter);
     }
@@ -166,28 +166,35 @@ public class NextUpFragment extends Fragment implements JSONFetching{
     @Override
     public void didFailToFetch() {
         Log.d("Internet connection failure!","Internet is Down cannot fetch data");
-        this.getActivity().runOnUiThread(new Runnable() {
+        final MainActivity activity = (MainActivity) getActivity();
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mDialog.dismiss();
             }
         });
-
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity()).create();
+        if (activity.isAlertRunning)
+        {
+            return;
+        }
+        AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         alertDialog.setTitle("No Internet Connection");
         alertDialog.setMessage("Please establish a solid internet connection and try again.");
+
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
 
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("close","blaædfjkaædajx");
                         dialog.dismiss();
                         dialog.cancel();
+                        activity.isAlertRunning = false;
+
                     }
 
                 });
         alertDialog.show();
+        activity.isAlertRunning = true;
     }
 
     public void addSingleProgram(JSONArray jsonArray, int index, String tvStation, boolean onAir)
