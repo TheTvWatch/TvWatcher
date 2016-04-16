@@ -55,12 +55,6 @@ public class DisplayRuvFragment extends Fragment implements JSONFetching {
     public void didFailToFetch() {
         Log.d("Internet connection failure!","Internet is Down cannot fetch data");
         final MainActivity activity = (MainActivity) getActivity();
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mDialog.dismiss();
-            }
-        });
         if (activity.isAlertRunning)
         {
             return;
