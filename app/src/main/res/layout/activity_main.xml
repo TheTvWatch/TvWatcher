@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
     <LinearLayout
         android:id="@+id/mainlayout"
@@ -79,6 +80,7 @@
                 android:background="@drawable/channelbg"/>
 
             <Button
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Skjár Einn"
@@ -122,7 +124,20 @@
             android:layout_height="match_parent">
 
         </FrameLayout>
+
+
     </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_gravity="center_horizontal|bottom">
+    </com.google.android.gms.ads.AdView>
 
 
 </FrameLayout>

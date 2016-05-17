@@ -25,6 +25,9 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class MainActivity extends FragmentActivity {
     Button gotoNextup, gotoChannels, gotoFavorites;
     public boolean isAlertRunning;
@@ -56,9 +59,11 @@ public class MainActivity extends FragmentActivity {
         }
 
         setUpNavListeners();
-
-
-
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                        .addTestDevice("7DB61DF7B5D8339316E95E058037C643")
+                        .build();
+        mAdView.loadAd(adRequest);
     }
 
     public static Context getActivityContext()
